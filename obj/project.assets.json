@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\repository\\StreamWest-1629\\desires-of-sheep\\desire-of-sheep\\desire-of-sheep.csproj",
+      "projectUniqueName": "D:\\repository\\StreamWest-1629\\desires-of-sheep\\desire-of-sheep.csproj",
       "projectName": "desire-of-sheep",
-      "projectPath": "D:\\repository\\StreamWest-1629\\desires-of-sheep\\desire-of-sheep\\desire-of-sheep.csproj",
+      "projectPath": "D:\\repository\\StreamWest-1629\\desires-of-sheep\\desire-of-sheep.csproj",
       "packagesPath": "C:\\Users\\streamwest1629\\.nuget\\packages\\",
-      "outputPath": "D:\\repository\\StreamWest-1629\\desires-of-sheep\\desire-of-sheep\\obj\\",
+      "outputPath": "D:\\repository\\StreamWest-1629\\desires-of-sheep\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\streamwest1629\\AppData\\Roaming\\NuGet\\NuGet.Config",
