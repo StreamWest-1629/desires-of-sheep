@@ -6,5 +6,3 @@ def GetPlace():
     if data is None:
         return None
     return (data['latitude'], data['longitude'])
-
-print(GetPlace())
