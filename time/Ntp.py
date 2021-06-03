@@ -4,7 +4,7 @@ from datetime import datetime
 
 serverPath = "time.google.com"
 
-def GetUtcNow(server, port = 123):
+def GetUtcNow(server=serverPath, port = 123):
 
     with socket(AF_INET, SOCK_DGRAM) as s:
         s.sendto(b'\x1b' + 47 * b'\0', (server, port))
