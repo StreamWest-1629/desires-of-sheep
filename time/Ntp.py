@@ -14,5 +14,5 @@ def GetUtcNow(server=serverPath, port = 123):
     else:
         None
 
-def Test():
-    print(GetUtcNow(serverPath))
+# def Test():
+#     print(GetUtcNow(serverPath))
