@@ -1,3 +1,6 @@
+import sys
+# sys.path.append('./../')
+
 from place import GetPlace
 from ntp import GetUtcNow
 from timezone import GetTimeZone, ConvertFromUtc
@@ -16,4 +19,4 @@ def GetTimeFromNet():
 
     return ConvertFromUtc(dt, tz)
 
-# print(GetTimeFromNet())
+print(GetTimeFromNet())
