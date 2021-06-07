@@ -1,0 +1,34 @@
+{
+  "name": "desires-of-sheep",
+  "version": "1.0.0",
+  "description": "This Application helps your sleeping.",
+  "main": "index.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StreamWest-1629/desires-of-sheep.git"
+  },
+  "author": "Kasai Koji",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StreamWest-1629/desires-of-sheep/issues"
+  },
+  "homepage": "https://github.com/StreamWest-1629/desires-of-sheep#readme",
+  "dependencies": {
+    "@mapbox/timespace": "^2.0.4",
+    "auto-launch": "^5.0.5",
+    "core-js": "^3.14.0",
+    "electron": "^13.1.1",
+    "electron-store": "^8.0.0",
+    "fs": "^0.0.1-security",
+    "node-cron": "^3.0.0",
+    "path": "^0.12.7",
+    "promise": "^8.1.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "jst": "^0.0.13"
+  }
+}
