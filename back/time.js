@@ -27,7 +27,7 @@ exports.LocalNow = function(then) {
                 // タイムゾーンから現在時刻を取得する
 
                 var datenow = ts.getFuzzyLocalTimeFromPoint(date.getTime(), [longitude, latitude]);
-                then(longitude, latitude, datenow);
+                then(datenow);
             }
         })
     })
