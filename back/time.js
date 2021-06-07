@@ -3,6 +3,7 @@
 var ts = require('@mapbox/timespace');
 const console = require('console');
 var request = require('request');
+var ntpClient = require('ntp-client');
 
 // 日時を確認する
 exports.LocalNow = function(then) {
@@ -16,7 +17,19 @@ exports.LocalNow = function(then) {
         var latitude = parseFloat(body.latitude)
         var longitude = parseFloat(body.longitude)       
         
-        then(longitude, latitude);
+
+        // 現在時刻を取得する
+        ntpClient.getNetworkTime("time.google.com", 123, function(err, date) {
+            if (err) {
+                console.error(err);
+                return;
+            } else {
+                // タイムゾーンから現在時刻を取得する
+
+                var datenow = ts.getFuzzyLocalTimeFromPoint(date.getTime(), [longitude, latitude]);
+                then(longitude, latitude, datenow);
+            }
+        })
     })
 }
 
