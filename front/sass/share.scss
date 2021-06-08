@@ -1,0 +1,111 @@
+body {
+    // Background
+    background-color: #fad2d2;
+
+    #bg-inner {
+
+        // Backgound Inner
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        bottom: 20px;
+        right: 20px;
+        background: #f7fbff;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        border-radius: 18px;
+        
+        .title {
+            /* Title */
+            position: absolute;
+            left: 23px;
+            top: -20px;
+
+            .win-title {
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 48px;
+                line-height: 56px;
+                display: flex;
+                align-items: center;
+
+                color: #727272;
+            }
+        }
+        .props {
+            /* Properties */
+
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            top: 74px;
+            bottom: 18px;
+
+            background: #FFFFFF;
+            border: 5px solid #DADADA;
+            box-sizing: border-box;
+            border-radius: 35px;
+            
+            .props-inner {
+                /* Properties-inner */
+                /* Auto Layout */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 0px;
+
+                position: absolute;
+                left: 20px;
+                right: 20px;
+                height: 100%;
+                
+                .prop {
+                    /* Inside Auto Layout */
+                    flex: none;
+                    order: 0;
+                    align-self: stretch;
+                    flex-grow: 0;
+                    height: 48px;
+                    display: block;
+
+                    &::marker {
+                        display: none;
+                    }
+                    .prop-view {
+                        display:block;
+                        
+                    }
+
+                    span {
+                        position: absolute;
+                        display:block;
+                        width: 50%;
+                        height: 40px;
+                        padding: auto 0;
+                        font-weight: bold;
+                    }
+                    label {
+                        position: absolute;
+                        left: 50%;
+                        width: 25%;
+                        height:40px;
+                        color:rgba(0, 0, 0, 0.50)
+                    }
+                    input {
+                        position: absolute;
+                        right: 0;
+                        width: 20%;
+                        height:40px;
+                        border: none;
+
+                        &[type="time"] {
+                        }
+
+                        &[type="button"] {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
