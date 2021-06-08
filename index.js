@@ -4,6 +4,8 @@
 const electron = require('electron');
 const {app, Tray, Menu } = require('electron');
 const time = require('./back/time');
+const sleep = require('./back/sleep');
+const autorun = require('./back/autorun');
 const settings = require('./front/setting');
 const path = require('path');
 const join = require('path').join;
@@ -14,10 +16,16 @@ const Store = require('electron-store');
 const store = new Store();
 var Promise = require('promise');
 var CronJob = require('node-cron');
-var AutoLaunch = require('auto-launch');
 const console = require('console');
 var jobs;
 
+autorun.CheckRun();
+
+require('electron-reload')(__dirname, {
+    electron: require(`${__dirname}/node_modules/electron`)
+});
+
+// アプリ開始時に実行される関数群
 app.on('ready', () => {
     tray = new Tray(__dirname + '/img/icon.jpg');
 
@@ -25,8 +33,9 @@ app.on('ready', () => {
         {label: 'Settings...', click(menuItem) {settings.Open();}}
     ]);
 
-    time.LocalNow((longitude, latitude) => {
-        tray.setToolTip(`Coorinates: ${longitude}, ${latitude}`)
+    time.LocalNow((datetime) => {
+        sleep.Check()
+        tray.setToolTip(String(datetime));
     });
     
     tray.setToolTip("Happy");
