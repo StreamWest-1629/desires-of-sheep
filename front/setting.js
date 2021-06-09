@@ -13,7 +13,7 @@ exports.Open = function() {
     if (setWindow == null) {            
         setWindow = new BrowserWindow({
             width: 600,
-            height: 450,
+            height: 430,
             autoHideMenuBar: true,
             webPreferences: {
                 nodeIntegration: true,
@@ -22,10 +22,10 @@ exports.Open = function() {
             resizable: false,
             fullscreenable: false,
             fullscreen: false,
-            modal: true,
+            modal: false,
             minimizable: false,
             maximizable: false,
-            frame: true,
+            frame: false,
             icon: __dirname + "/../img/icon.jpg"
         });
 
