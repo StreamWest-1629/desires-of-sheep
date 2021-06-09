@@ -2,10 +2,10 @@
   "name": "desires-of-sheep",
   "version": "1.0.0",
   "description": "This Application helps your sleeping.",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "hot-reload": "npm-run-all --parallel electron sass",
-    "electron": "electron .",
+    "electron": "electron . --trace-warning",
     "sass": "node-sass --watch front/sass/share.scss front/css/share.css"
   },
   "repository": {
@@ -23,6 +23,7 @@
     "auto-launch": "^5.0.5",
     "core-js": "^3.14.0",
     "electron": "^13.1.1",
+    "electron-log": "^4.3.5",
     "electron-reload": "^1.5.0",
     "electron-store": "^8.0.0",
     "fs": "^0.0.1-security",
