@@ -11,8 +11,9 @@ body {
         bottom: 20px;
         right: 20px;
         background: #f7fbff;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
         border-radius: 18px;
+        border: solid 5px white;
+        box-shadow: 3px 3px 3px #b98080;
         
         .title {
             /* Title */
@@ -29,7 +30,8 @@ body {
                 display: flex;
                 align-items: center;
 
-                color: #727272;
+                color: #fad2d2;
+                text-shadow: 3px 3px 3px #b98080;
             }
         }
         .props {
@@ -58,6 +60,7 @@ body {
                 left: 20px;
                 right: 20px;
                 height: 100%;
+                box-shadow: none;
                 
                 .prop {
                     /* Inside Auto Layout */
@@ -83,13 +86,15 @@ body {
                         height: 40px;
                         padding: auto 0;
                         font-weight: bold;
+                        box-shadow: none !important;
                     }
                     label {
                         position: absolute;
                         left: 50%;
                         width: 25%;
                         height:40px;
-                        color:rgba(0, 0, 0, 0.50)
+                        color:rgba(0, 0, 0, 0.50);
+                        box-shadow: none !important;
                     }
                     input, button {
                         position: absolute;
@@ -106,12 +111,30 @@ body {
 
                         &[type="time"] {
                             border-radius: 15px;
-                            width: calc(30% - 30px);
-                            padding-left: 30px;
+                            width: calc(30% - 40px);
+                            padding-left: 35px;
+                            padding-right: 5px;
                             font-size: 20px;
-                            font-weight: bold;
+                            font-weight: 800;
                             color:white;
                             border-radius: 30px;
+                            stop-color: white;
+                            flood-color: white;
+                            box-shadow: 3px 3px 3px #b98080;
+                            transition: 0.3s;
+                            &:active {
+                                box-shadow: 0px 0px 0px #b98080;
+                            }
+                            &:enabled {
+                                border: none;
+                            }
+                        }
+                    }
+                    button {
+                        box-shadow: 3px 3px 3px #b98080;
+                        transition: 0.3s;
+                        &:active {
+                            box-shadow: 0px 0px 0px #b98080;
                         }
                     }
                 }
@@ -137,6 +160,12 @@ body {
                 // &:active {
                 //     background: black;
                 // }
+                
+                box-shadow: 3px 3px 3px #b98080;
+                transition: 0.3s;
+                &:active {
+                    box-shadow: 0px 0px 0px #b98080;
+                }
             }
         }
     }
