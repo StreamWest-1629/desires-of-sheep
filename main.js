@@ -2,13 +2,13 @@
 
 // Standard Modules
 const electron = require('electron');
-const {app, Tray, Menu } = require('electron');
+const {app, Tray, Menu, BrowserWindow } = require('electron');
 const time = require('./back/time');
 const sleep = require('./back/sleep');
 const autorun = require('./back/autorun');
-const settings = require('./front/setting');
+const setting = require('./front/setting');
 const path = require('path');
-const join = require('path').join;
+const { join } = require('path');
 const fs = require('fs');
 const ipcMain = require('electron').ipcMain;
 
@@ -29,9 +29,9 @@ require('electron-reload')(__dirname, {
 app.on('ready', () => {
     tray = new Tray(__dirname + '/img/icon.jpg');
 
-    const ctxMenu = Menu.buildFromTemplate([
-        {label: 'Settings...', click(menuItem) {settings.Open();}}
-    ]);
+    // const ctxMenu = Menu.buildFromTemplate([
+    //     {label: 'Settings...', click(menuItem) {SettingOpen();}}
+    // ]);
 
     time.LocalNow((datetime) => {
         sleep.Check()
@@ -39,7 +39,10 @@ app.on('ready', () => {
     });
     
     tray.setToolTip("Happy");
-    tray.on('right-click', () => {
-        tray.popUpContextMenu(ctxMenu);
+    tray.on('double-click', () => {
+        setting.Open();
     });
+    // tray.on('click', () => {
+    //     tray.popUpContextMenu(ctxMenu);
+    // });
 });
