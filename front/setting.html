@@ -4,8 +4,27 @@
         <meta charset="utf-8">
         <title>Setting</title>
         <link rel="stylesheet" href="css/share.css">
+        <script src="setting.js"></script>
+        <script lang="javascript">
 
-    </title>
+            var ipcRenderer = require( 'electron' ).ipcRenderer;
+            var console = require('console');
+
+            window.onload = function() { onStart(); };
+
+            function onStart() {
+                // Prepare of Recieve Renderer
+                ipcRenderer.send('async', "init");
+            }
+
+            function onClose() {
+                
+                console.log("Hello");
+                ipcRenderer.send('close', "");
+            }
+
+        </script>
+    </head>
     <body>
         <div id="bg-inner">
             <div class="title"><h1 class="win-title">Settings</h1></div>
@@ -23,10 +42,22 @@
                     </li>
                     <li class="prop has-btn">
                         <span class="prop-title">就寝前に再生する音楽の設定</span>
-                        <label for="sleep-time">8時間</label>
-                        <input id="sleep-span" type="button" name="sleep-span" value="08:00">
+                        <label for="sleep-time">8項目</label>
+                        <input id="sleep-span" type="button" name="sleep-span" value="設定...">
+                    </li>
+                    <li class="prop has-btn">
+                        <span class="prop-title">バージョン情報</span>
+                        <label for="sleep-time">1.0.0</label>
+                        <input id="sleep-span" type="button" name="sleep-span" value="バージョン" onClick='onClose()'>
                     </li>
                 </ul>
+            </div>
+            <div class="buttons">
+                
+                <label for="option-ok"></label>
+                <input id="option-ok" type="button" name="option-ok" value="OK">
+                <label for="option-cancel"></label>
+                <input id="option-cancel" type="button" name="option-cancel" value="CLOSE" onClick='onClose()'>
             </div>
         </div>
     </body>
