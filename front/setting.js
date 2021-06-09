@@ -42,20 +42,19 @@ exports.Open = function() {
     }
 }
 
-ipcMain.on('async', function(event, args, arg2) {
-    switch (args) {
-        case "init":
-            var  array = [];
-
-            var arg_time = store.get('sleep-time');
-            var arg_span = store.get('sleep-span');
-
-            array.push(arg_time);
-            array.push(arg_span);
+ipcMain.on('save', (event, args) => {
+    switch (args.mode) {
+        case 'initialize':
+            break;
+        case 'standard':
+            break;
+        case 'music':
+            break;
     }
-    console.log(args);
 });
 
-ipcMain.on('close', function(event, args) {
-    setWindow.close();
-});
+ipcMain.on('kill', () => {
+    if (setWindow != null) {
+        setWindow.close();
+    }
+})
