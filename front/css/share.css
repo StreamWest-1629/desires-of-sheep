@@ -70,31 +70,31 @@ body {
             width: 25%;
             height: 40px;
             color: rgba(0, 0, 0, 0.5); }
-          body #bg-inner .props .props-inner .prop input {
+          body #bg-inner .props .props-inner .prop input, body #bg-inner .props .props-inner .prop button {
             position: absolute;
             right: 0;
             width: 30%;
             height: 40px;
             border: none;
-            border-radius: 30px; }
-            body #bg-inner .props .props-inner .prop input[type="time"] {
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            background: #fad2d2; }
+            body #bg-inner .props .props-inner .prop input[type="time"], body #bg-inner .props .props-inner .prop button[type="time"] {
               border-radius: 15px;
               width: calc(30% - 30px);
               padding-left: 30px;
               font-size: 20px;
               font-weight: bold;
-              color: gray; }
-            body #bg-inner .props .props-inner .prop input[type="button"] {
-              font-size: 15px;
-              font-weight: bold;
               color: white;
-              background: #fad2d2; }
+              border-radius: 30px; }
     body #bg-inner .buttons {
       position: absolute;
       height: 60px;
       bottom: -10px;
       right: 20px; }
-      body #bg-inner .buttons input[type="button"] {
+      body #bg-inner .buttons button {
         right: 0px;
         height: 40px;
         width: 100px;

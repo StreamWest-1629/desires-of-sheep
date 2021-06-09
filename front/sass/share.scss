@@ -91,7 +91,7 @@ body {
                         height:40px;
                         color:rgba(0, 0, 0, 0.50)
                     }
-                    input {
+                    input, button {
                         position: absolute;
                         right: 0;
                         width: 30%;
@@ -99,20 +99,19 @@ body {
                         border: none;
                         border-radius: 30px;
 
+                        font-size: 15px;
+                        font-weight: bold;
+                        color: white;
+                        background: #fad2d2;
+
                         &[type="time"] {
                             border-radius: 15px;
                             width: calc(30% - 30px);
                             padding-left: 30px;
                             font-size: 20px;
                             font-weight: bold;
-                            color:rgb(128, 128, 128);
-                        }
-
-                        &[type="button"] {
-                            font-size: 15px;
-                            font-weight: bold;
-                            color: white;
-                            background: #fad2d2;
+                            color:white;
+                            border-radius: 30px;
                         }
                     }
                 }
@@ -124,7 +123,7 @@ body {
             bottom: -10px;
             right: 20px;
 
-            input[type="button"] {
+            button {
                 right: 0px;
                 height: 40px;
                 width: 100px;
