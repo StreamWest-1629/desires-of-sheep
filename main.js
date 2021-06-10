@@ -12,14 +12,10 @@ const { join } = require('path');
 const fs = require('fs');
 const ipcMain = require('electron').ipcMain;
 
-const Store = require('electron-store');
-const store = new Store();
 var Promise = require('promise');
 var CronJob = require('node-cron');
 const console = require('console');
 var jobs;
-
-autorun.CheckRun();
 
 require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
@@ -34,7 +30,7 @@ app.on('ready', () => {
     // ]);
 
     time.LocalNow((datetime) => {
-        sleep.Check()
+        // sleep.Check()
         tray.setToolTip(String(datetime));
     });
     
@@ -45,4 +41,6 @@ app.on('ready', () => {
     // tray.on('click', () => {
     //     tray.popUpContextMenu(ctxMenu);
     // });
+
+
 });
