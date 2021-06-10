@@ -1,38 +1,47 @@
 'use strict';
 
 const timespan = require('timespan');
+const { TimeSpan } = require('timespan');
+const store = require('./store');
 
-let startTime = timespan.TimeSpan();
-let endTime = timespan.TimeSpan();
-let initialized = false;
+var startTime;
+var endTime;
 
-exports.GetFromData = function(starttime, span) {
-    startTime = timespan(starttime);
-    endTime = timespan(span);
+init();
+
+function init() {
+    GetFromData();
+}
+
+function GetFromData() {
+    const savedata = store.GetOptions();
+    startTime = new TimeSpan(0, 0, parseInt(savedata['sleep-time']));
+    endTime = new TimeSpan(0, 0, parseInt(savedata['sleep-span']));
     endTime.add(startTime);
 }
 
-exports.Check = function(datenow) {
-    if (initialized) {
-        now = timespan(0, 0, datenow.getMinites(), datenow.getHours());
-        if (startTime > now) {
-            
-            var dif = timespan.clone(startTime);
-            dif.subtract(now);
-            if (dif.totalHours() < 1) {
-                near();
-            }
+exports.SetToData = function(start, span) {
+    store.SetOptions('sleep-time', toString(startTime.totalMinutes()));
+    store.SetOptions('sleep-span', toString(endTime.totalMinutes()));
+}
 
-            now.addHours(24);
+function Check(datenow) {
+    now = timespan(0, 0, datenow.getMinites(), datenow.getHours());
+    if (startTime > now) {
+        var dif = TimeSpan.clone(startTime);
+        dif.subtract(now);
+        if (dif.totalHours() < 1) {
+            near();
         }
-        if (now < endtime) {
-            shutdown();
-        } 
+        now.addHours(24);
     }
+    if (now < endtime) {
+        shutdown();
+    } 
 }
 
 function shutdown() {
-
+    new Notification({ title: "寝よう", body: "寝ましょう" }).show();
 }
 
 function near() {
