@@ -4,8 +4,8 @@ const timespan = require('timespan');
 
 exports.GetOptions = function() {
     return {
-        'sleep-time': store.get('settings.sleep.time', timespan.TimeSpan(0, 0, 0, 20)),
-        'sleep-span': store.get('settings.sleep.span', timespan.TimeSpan(0, 0, 0, 8)),
+        'sleep-time': store.get('settings.sleep.time', new timespan.TimeSpan(0, 0, 0, 20)),
+        'sleep-span': store.get('settings.sleep.span', new timespan.TimeSpan(0, 0, 0, 8)),
         'musics': store.get('settings.musics', [])
     };
 };
