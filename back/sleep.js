@@ -81,8 +81,8 @@ function Check(datenow) {
     const date = new Date(datenow);
 
     const now = new TimeSpan(date.getMilliseconds(), date.getSeconds(), date.getMinutes(), date.getHours());
-    log.log(now);
-    if (startTime > now) {
+
+    if (startTime.totalSeconds() > now.totalSeconds()) {
         var dif = new TimeSpan(startTime.totalMilliseconds());
         dif.subtract(now);
         if (dif.totalHours() < 1) {
