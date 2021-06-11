@@ -1,25 +1,39 @@
-const Store = require('electron-store');
-const store = new Store();
-const timespan = require('timespan');
+'use strict';
 
+const Store = require('electron-store');
+const log = require('electron-log');
+
+const timespan = require('timespan');
+const { app } = require('electron');
+
+log.log(app.getPath('userData'));
+
+const Hour24 = 1000 * 3600 * 24;
+const Hour20 = 1000 * 3600 * 20;
+
+const store = new Store();
 exports.GetOptions = function() {
     return {
-        'sleep-time': store.get('settings.sleep.time', new timespan.TimeSpan(0, 0, 0, 20)),
-        'sleep-span': store.get('settings.sleep.span', new timespan.TimeSpan(0, 0, 0, 8)),
-        'musics': store.get('settings.musics', [])
+        'sleep-time': store.get('sleep.time', Hour20),
+        'sleep-span': store.get('sleep.span', Hour24 / 3),
+        'dif-local': store.get('time.dif', 0),
+        'musics': store.get('musics', [])
     };
 };
 
 exports.SetOptions = function(content, value) {
     switch (content) {
         case 'sleep-time':
-            store.set({settings: {sleep: {time: toString(value)}}});
+            store.set({sleep: {time: value.totalMilliseconds().toString()}});
             break;
         case 'sleep-span':
-            store.set({settings: {sleep: {span: toString(value)}}});
+            store.set({sleep: {span: value.totalMilliseconds().toString()}});
+            break;
+        case 'dif-local':
+            store.set({time: {dif: value}})
             break;
         case 'musics':
-            store.set({settings: {musics: value}});
+            store.set({musics: value});
             break;
     }
 }

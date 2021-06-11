@@ -30,8 +30,9 @@ function init() {
 
 function GetFromData() {
     const savedata = store.GetOptions();
-    startTime = new TimeSpan(parseInt(savedata['sleep-time']['msecs']));
-    endTime = new TimeSpan(parseInt(savedata['sleep-span']['msecs']));
+    startTime = new TimeSpan(parseInt(savedata['sleep-time']));
+    endTime = new TimeSpan(parseInt(savedata['sleep-span']));
+
     endTime.add(startTime);
 }
 
@@ -64,8 +65,9 @@ function check() {
 
         try {
             time.LocalNow(function(datenow) {
-                var date = Date.parse(datenow);
+                const date = Date.parse(datenow);
                 difNetAndLocal = (date - localNow) / 1000
+                store.SetOptions('dif-local', difNetAndLocal)
                 Check(localNow.setSeconds(localNow.getSeconds() + difNetAndLocal))
             })
         } catch (err) {
