@@ -91,7 +91,7 @@ function Check(datenow) {
         }
         now.addHours(24);
     }
-    if (now < endTime) {
+    if (now.totalMilliseconds() < endTime.totalMilliseconds()) {
         log.log("Shutdown...(checkTimes: " + checkTimes.toString() + ")")
         shutdown();
     } else {
