@@ -12,7 +12,7 @@ const request = require('request');
 var startTime;
 var endTime;
 var checkTimes = 60;
-var beforeTime
+var beforeTime;
 var difNetAndLocal = 0;
 
 init();
@@ -36,6 +36,8 @@ function GetFromData() {
     endTime = new TimeSpan(parseInt(savedata['sleep-span']));
 
     endTime.add(startTime);
+    log.log("startTime: " + startTime)
+    log.log("endTime  : " + endTime)
 }
 
 function check() {
