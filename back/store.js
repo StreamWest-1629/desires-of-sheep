@@ -23,11 +23,13 @@ exports.GetOptions = function() {
 
 exports.SetOptions = function(content, value) {
     switch (content) {
-        case 'sleep-time':
-            store.set({sleep: {time: value.totalMilliseconds().toString()}});
-            break;
-        case 'sleep-span':
-            store.set({sleep: {span: value.totalMilliseconds().toString()}});
+        case 'sleep':
+            store.set({
+                sleep: {
+                    time: value['time'],
+                    span: value['span']
+                }
+            })
             break;
         case 'dif-local':
             store.set({time: {dif: value}})

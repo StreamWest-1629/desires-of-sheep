@@ -28,17 +28,14 @@ function init() {
     });
 }
 
+exports.GetFromData = GetFromData;
+
 function GetFromData() {
     const savedata = store.GetOptions();
     startTime = new TimeSpan(parseInt(savedata['sleep-time']));
     endTime = new TimeSpan(parseInt(savedata['sleep-span']));
 
     endTime.add(startTime);
-}
-
-exports.SetToData = function(start, span) {
-    store.SetOptions('sleep-time', toString(startTime.totalMinutes()));
-    store.SetOptions('sleep-span', toString(endTime.totalMinutes()));
 }
 
 function check() {
