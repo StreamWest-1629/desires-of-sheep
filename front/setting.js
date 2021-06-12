@@ -3,9 +3,8 @@
 // Standard Modules
 const electron = require('electron');
 const {app, BrowserWindow, ipcMain } = require('electron');
-const console = require('electron-log');
-const Store = require('electron-store');
-const store = new Store();
+const log = require('electron-log');
+const Store = require('../back/store');
 let setWindow = null;
 
 exports.Open = function() {
@@ -42,15 +41,20 @@ exports.Open = function() {
     }
 }
 
-ipcMain.on('save', (event, args) => {
-    switch (args.mode) {
+ipcMain.on('update', (event, args) => {
+    switch (args['mode']) {
         case 'initialize':
             break;
         case 'standard':
+            Store.SetOptions('sleep', {
+                time: args['sleep']['time']['msecs'],
+                span: args['sleep']['span']['msecs'] 
+            });
             break;
         case 'music':
             break;
     }
+    event.reply('update-reply', Store.GetOptions());
 });
 
 ipcMain.on('kill', () => {
