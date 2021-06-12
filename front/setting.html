@@ -38,14 +38,30 @@
             </div>
         </div>
         <script type="text/javascript">
-            const renderer = require('./setting-renderer');
-            renderer.RecieveValue = function() {
+            var renderer = require('./setting-renderer');
+            const { TimeSpan } = require('timespan');
 
+            function RecieveValue(event, args) {
+                var time = new TimeSpan(args['sleep-time']);
+                var span = new TimeSpan(args['sleep-span']);
+                const timestr = ('00' + time.hours).slice(-2) + ":" + ('00' + time.minutes).slice(-2);
+                const spanstr = ('00' + span.hours).slice(-2) + ":" + ('00' + span.minutes).slice(-2);
+                document.querySelector('label[for="sleep-time"]').textContent = timestr;
             }
-            renderer.SendValue = function() {
+            function SendValue() {
 
+                const sleepTime = (document.querySelector('#sleep-time').value).split(':');
+                const sleepSpan = (document.querySelector('#sleep-span').value).split(':');
+
+                return {
+                    mode: 'standard',
+                    sleep: {
+                        time: new TimeSpan(0, 0, parseInt(sleepTime[1]), parseInt(sleepTime[0])),
+                        span: new TimeSpan(0, 0, parseInt(sleepSpan[1]), parseInt(sleepSpan[0]))
+                    }
+                }
             }
-            window.onload = renderer.Initializer;
+            window.onload = function() {renderer.Initializer(RecieveValue, SendValue)};
 
         </script>
     </body>

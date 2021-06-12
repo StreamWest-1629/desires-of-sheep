@@ -5,6 +5,7 @@ const electron = require('electron');
 const {app, BrowserWindow, ipcMain } = require('electron');
 const log = require('electron-log');
 const Store = require('../back/store');
+const sleep = require('../back/sleep');
 let setWindow = null;
 
 exports.Open = function() {
@@ -50,10 +51,12 @@ ipcMain.on('update', (event, args) => {
                 time: args['sleep']['time']['msecs'],
                 span: args['sleep']['span']['msecs'] 
             });
+            sleep.GetFromData();
             break;
         case 'music':
             break;
     }
+    
     event.reply('update-reply', Store.GetOptions());
 });
 
