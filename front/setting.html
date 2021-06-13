@@ -11,19 +11,19 @@
             <div class="props">
                 <ul class="props-inner">
                     <li class="prop has-time">
-                        <span class="prop-title">就寝時間（PM 06:00～PM 10:00）</span>
+                        <span class="prop-title">就寝時間</span>
                         <label for="sleep-time">PM 10:00</label>
                         <input id="sleep-time" type="time" name="sleep-time" value="20:00">
                     </li>
                     <li class="prop has-time">
-                        <span class="prop-title">睡眠時間（8時間～12時間）</span>
+                        <span class="prop-title">睡眠時間</span>
                         <label for="sleep-span">8時間</label>
-                        <input id="sleep-span" type="time" name="sleep-span" value="08:00">
+                        <input id="sleep-span" type="time" name="sleep-span" min="06:00" value="08:00">
                     </li>
                     <li class="prop has-btn">
                         <span class="prop-title">就寝前に再生する音楽の設定</span>
                         <label for="prop-musics">8項目</label>
-                        <button id="prop-musics" name="prop-musics">設定...</button>
+                        <button id="prop-musics" name="prop-musics" onclick="GotoMusics()">設定...</button>
                     </li>
                     <li class="prop has-btn">
                         <span class="prop-title">バージョン情報</span>
@@ -40,6 +40,11 @@
         <script type="text/javascript">
             var renderer = require('./setting-renderer');
             const { TimeSpan } = require('timespan');
+            const { ipcRenderer } = require('electron');
+
+            function GotoMusics() {
+                ipcRenderer.send('gotoMusics');
+            }
 
             function RecieveValue(event, args) {
                 var time = new TimeSpan(args['sleep-time']);

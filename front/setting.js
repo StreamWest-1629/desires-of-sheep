@@ -60,8 +60,17 @@ ipcMain.on('update', (event, args) => {
     event.reply('update-reply', Store.GetOptions());
 });
 
-ipcMain.on('kill', () => {
+ipcMain.on('kill', (event) => {
     if (setWindow != null) {
         setWindow.close();
     }
+});
+
+ipcMain.on('gotoMusics', (event) => {
+    log.log('Load Start');
+    setWindow.webContents.loadFile('front/musics.html');
+});
+
+ipcMain.on('gotoSettings', () => {
+    setWindow.webContents.loadFile('front/setting.html');
 })

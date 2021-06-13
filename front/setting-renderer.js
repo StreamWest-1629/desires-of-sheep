@@ -27,14 +27,23 @@ exports.Initializer = function(recieve, send) {
     ipcRenderer.send("update", { mode:"initialize" });
 
     // Button EventListener
-    document.querySelector('#option-close').addEventListener('click', function(event) { onclose() });
-    document.querySelector('#option-save').addEventListener('click', function(event) { onsave() });
+    if (document.querySelector('#option-close') != null) {
+        document.querySelector('#option-close').addEventListener('click', function(event) { onclose() });
+    }
+    if (document.querySelector('#option-save') != null) {
+        document.querySelector('#option-save').addEventListener('click', function(event) { onsave() });
+    }
+    if (document.querySelector('#option-back') != null){
+        document.querySelector('#option-back').addEventListener('click', function(event) { onback() });
+    }
 };
 
 function onclose() {
     ipcRenderer.send("kill");
 }
 function onsave() {
-    log.log('onsave() reached.')
     ipcRenderer.send("update", SendValue());
+}
+function onback() {
+    ipcRenderer.send("gotoSettings");
 }

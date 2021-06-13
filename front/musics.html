@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Setting</title>
+        <link rel="stylesheet" href="css/share.css">
+    </head>
+    <body>
+        <div id="bg-inner">
+            <div class="title"><h1 class="win-title">Settings</h1></div>
+            <div class="buttons">
+                <button id="option-save">SAVE</button>
+                <button id="option-back">BACK</button>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var renderer = require('./setting-renderer');
+            const { TimeSpan } = require('timespan');
+
+            function RecieveValue(event, args) {
+            }
+            function SendValue() {
+
+                return {
+                    mode: 'musics',
+                    musics: []
+                }
+            }
+            window.onload = function() {renderer.Initializer(RecieveValue, SendValue)};
+
+        </script>
+    </body>
+</html>
