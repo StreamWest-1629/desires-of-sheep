@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta name="viewport" content="width: device-width">
+    </head>
+    <body>
+        <audio></audio>
+        <script>
+            const {ipcRenderer} = require('electron');
+            const log = require('electron-log');
+            var audio = new Audio();
+            var isPlay = false;
+            
+            // audio.src = "https://r1---sn-oguelne7.googlevideo.com/videoplayback?expire=1623579939&ei=w4jFYLLpLYP-4gKM05-ICg&ip=221.115.179.81&id=o-ABnHgKZx2Bq-eV9SiXIjsbfYKl1dRb6RssS8ZA6xtPEa&itag=251&source=youtube&requiressl=yes&mh=YY&mm=31%2C26&mn=sn-oguelne7%2Csn-npoeenly&ms=au%2Conr&mv=m&mvi=1&pl=16&initcwndbps=1438750&vprv=1&mime=audio%2Fwebm&ns=UEl3blAL4zS04QQA_UyRf6kF&gir=yes&clen=2589408&otfp=1&dur=152.021&lmt=1616926257290466&mt=1623558284&fvip=1&keepalive=yes&fexp=24001373%2C24007246&beids=23886212&c=WEB&txp=6211222&n=NUPpjEiqwgd1MkvpgyT&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cotfp%2Cdur%2Clmt&sig=AOq0QJ8wRAIgG66d3U4K4p4eXdUFsLxdi3LugpzVSGpOTwHWiYKDt10CICOhj2idF4o05dE7wMJCuKRBNfTDJnMXh6VdtaEElpre&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAM2AXwTQ2WFxPYmxgBg0-tv52w2u1nahpXk8e0Ceyy0dAiEA5jr-tB4H_l5isfuX05xPjnIgHvJtHvjX6N0p6KiKF8A%3D&ratebypass=yes";
+            isPlay = true;
+            audio.load();
+
+            ipcRenderer.on("music-load", function(event, args) {
+                audio.src = args['url'];
+                isPlay = true;
+                audio.load();
+            });
+            
+            ipcRenderer.on("music-play", function(event) {
+                isPlay = true;
+                audio.play();
+            });
+
+            ipcRenderer.on("music-pause", function(event) {
+                isPlay = false;
+                audio.pause();
+            });
+
+            audio.addEventListener('canplay', () => {
+                if (isPlay) {
+                    audio.play();
+                }
+            });
+
+            audio.addEventListener('ended', () => {
+                audio.pause();
+                ipcRenderer.send('music-ended', { url: audio.src });
+            })
+
+            ipcRenderer.send('music-init');
+        </script>
+    </body>
+</html>

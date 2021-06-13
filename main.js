@@ -2,11 +2,12 @@
 
 // Standard Modules
 const electron = require('electron');
-const {app, Tray, Menu, BrowserWindow } = require('electron');
+const {app, Tray, Menu } = require('electron');
 const time = require('./back/time');
 const sleep = require('./back/sleep');
 const autorun = require('./back/autorun');
 const setting = require('./front/setting');
+const player = require('./func/player');
 const path = require('path');
 const { join } = require('path');
 const fs = require('fs');
@@ -41,6 +42,9 @@ app.on('ready', () => {
     // tray.on('click', () => {
     //     tray.popUpContextMenu(ctxMenu);
     // });
+    
+    // Test
+    player.Append("https://www.youtube.com/watch?v=Y4nEEZwckuU");
 
 
 });
