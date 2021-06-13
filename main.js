@@ -43,8 +43,4 @@ app.on('ready', () => {
     //     tray.popUpContextMenu(ctxMenu);
     // });
     
-    // Test
-    player.Append("https://www.youtube.com/watch?v=Y4nEEZwckuU");
-
-
 });
