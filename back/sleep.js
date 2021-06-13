@@ -80,6 +80,7 @@ function check() {
 function Check(datenow) {
     
     const date = new Date(datenow);
+    var isNear = false;
 
     const now = new TimeSpan(date.getMilliseconds(), date.getSeconds(), date.getMinutes(), date.getHours());
 
@@ -87,7 +88,7 @@ function Check(datenow) {
         var dif = new TimeSpan(startTime.totalMilliseconds());
         dif.subtract(now);
         if (dif.totalHours() < 1) {
-            near();
+            isNear = true;
         }
         now.addHours(24);
     }
@@ -96,6 +97,7 @@ function Check(datenow) {
         shutdown();
     } else {
         log.log("not Shutdown...(checkTimes: " + checkTimes.toString() + ")")
+        near(isNear);
     }
 }
 
@@ -103,6 +105,10 @@ function shutdown() {
     // new Notification({ title: toString(difNetAndLocal), body: toString(checkTimes) }).show();
 }
 
-function near() {
+function near(isNear) {
+    if (isNear == true) {
+        
+    } else {
 
+    }
 }
