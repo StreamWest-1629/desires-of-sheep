@@ -15,6 +15,22 @@ body {
         border: solid 5px white;
         box-shadow: 3px 3px 3px #b98080;
         
+        button {
+            border: none;
+            border-radius: 30px;
+
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            background: #fad2d2;
+            box-shadow: 3px 3px 3px #b98080;
+            transition: 0.3s;
+            height: 40px;
+            &:active {
+                box-shadow: 0px 0px 0px #b98080;
+            }
+        }
+
         .title {
             /* Title */
             position: absolute;
@@ -33,6 +49,14 @@ body {
                 color: #fad2d2;
                 text-shadow: 3px 3px 3px #b98080;
             }
+        }
+        .description {
+            position: absolute;
+            right: 23px;
+            top: 15px;
+            width: 50%;
+            font-weight: bold;
+            color: rgb(160, 160, 160);
         }
         .props {
             /* Properties */
@@ -53,7 +77,6 @@ body {
                 /* Auto Layout */
                 display: flex;
                 flex-direction: column;
-                align-items: center;
                 padding: 0px;
 
                 position: absolute;
@@ -65,9 +88,6 @@ body {
                 .prop {
                     /* Inside Auto Layout */
                     flex: none;
-                    order: 0;
-                    align-self: stretch;
-                    flex-grow: 0;
                     height: 48px;
                     display: block;
 
@@ -84,7 +104,7 @@ body {
                         display:block;
                         width: 50%;
                         height: 40px;
-                        padding: auto 0;
+                        padding: 7px 0;
                         font-weight: bold;
                         box-shadow: none !important;
                     }
@@ -93,6 +113,7 @@ body {
                         left: 50%;
                         width: 25%;
                         height:40px;
+                        padding: 7px 0;
                         color:rgba(0, 0, 0, 0.50);
                         box-shadow: none !important;
                     }
@@ -101,13 +122,7 @@ body {
                         right: 0;
                         width: 30%;
                         height:40px;
-                        border: none;
-                        border-radius: 30px;
-
-                        font-size: 15px;
-                        font-weight: bold;
-                        color: white;
-                        background: #fad2d2;
+                        
 
                         &[type="time"] {
                             border-radius: 15px;
@@ -117,6 +132,7 @@ body {
                             font-size: 20px;
                             font-weight: 800;
                             color:white;
+                            background: #fad2d2;
                             border-radius: 30px;
                             stop-color: white;
                             flood-color: white;
@@ -128,17 +144,80 @@ body {
                             &:enabled {
                                 border: none;
                             }
-                        }
-                    }
-                    button {
-                        box-shadow: 3px 3px 3px #b98080;
-                        transition: 0.3s;
-                        &:active {
-                            box-shadow: 0px 0px 0px #b98080;
+                            &:focus {
+                                outline: none;
+                            }
                         }
                     }
                 }
             }
+
+            .music-list {
+                position: absolute;
+                left: 25px;
+                top: -15px;
+                bottom: -15px;
+                width: 50%;
+                // height: calc(100% - 40px);
+                display: flex;
+                padding: 0px;
+                flex-direction: column;
+                box-sizing: border-box;
+                overflow-y: scroll;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .music-item {
+                    display: flex;
+                    flex-direction: row;
+                    margin-bottom: 5px;
+                    height: 40px;
+                    align-items:center;
+                    span {
+                        display: block;
+                        width: 80%;
+                    } 
+                }
+            }
+
+            .music-editor {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                width: 40%;
+                height: 100%;
+                display: flex;
+                padding: 5px;
+                flex-direction: column;
+
+                input[type="text"] {
+                    border: none;
+                    padding: 10px;
+                    border-radius: 5px 5px 0 0;
+                    border-bottom: solid lightgray;
+                    
+                    &:focus {
+                        outline: none;
+                        border-bottom: solid lightgray;
+                    }
+                }
+
+                button {
+                    margin-top: 10px;
+                    margin-left: 70%;
+                }
+            }
+
+            .music-description {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                width: 100%;
+                font-weight: bold;
+            }
+            
         }
         .buttons {
             position: absolute;
@@ -148,24 +227,7 @@ body {
 
             button {
                 right: 0px;
-                height: 40px;
                 width: 100px;
-
-                font-size: 15px;
-                font-weight: bold;
-                color: white;
-                background: #fad2d2;
-                border: none;
-                border-radius: 30px;
-                // &:active {
-                //     background: black;
-                // }
-                
-                box-shadow: 3px 3px 3px #b98080;
-                transition: 0.3s;
-                &:active {
-                    box-shadow: 0px 0px 0px #b98080;
-                }
             }
         }
     }
