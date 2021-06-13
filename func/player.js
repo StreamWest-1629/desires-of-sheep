@@ -35,7 +35,7 @@ function Pause() {
 }
 
 function Append(url) {
-    if (playerWindow == null) { Resume(); }
+    if (playerWindow == null) { init(); }
     playQueue.push(url);
     if (playQueue.length == 1 && initialized) {
         load();
