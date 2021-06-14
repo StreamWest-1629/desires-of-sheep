@@ -27,6 +27,7 @@ exports.Append = Append;
 exports.Pause = Pause;
 
 function Resume() {
+    if (playerWindow == null) { init(); }
     playerWindow.webContents.send('music-play');
 }
 
@@ -35,7 +36,6 @@ function Pause() {
 }
 
 function Append(url) {
-    if (playerWindow == null) { init(); }
     playQueue.push(url);
     if (playQueue.length == 1 && initialized) {
         load();
