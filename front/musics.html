@@ -32,7 +32,7 @@
                 </ul>
                 <div class="music-editor">
                     <input type="text" class="music-url" placeholder="Youtubeリンク"></textarea>
-                    <button class="music-add", onclick="() => {}">追加</button>
+                    <button class="music-add disable", onclick="() => {}">追加</button>
                 </div>
                 
             </div>
@@ -120,7 +120,7 @@
                         title = movies[i].title;
                     }
 
-                    list.innerHTML += "<li id='music-link-" + i + "' class='music-item'><span id='music-title'>" + 
+                    list.innerHTML += "<li id='music-link-" + i + "' class='music-item'><span class='music-title'>" + 
                         title + "</span><button class='delete' onclick='deleteItem(" + i + ");'>消去</button>";
                 }
 
@@ -138,11 +138,15 @@
                 renderer.Initializer(RecieveValue, SendValue);
             };
 
-            document.querySelector('.music-url').addEventListener('input', () => {
+            document.querySelector('.music-url').addEventListener('keyup', () => {
+                log.log("input called");
                 if (ytdl.validateURL(document.querySelector('.music-url').value)) {
                     document.querySelector('.music-add').onclick = addMusic;
+                    document.querySelector('.music-add').classList.remove('disable');
+                    
                 } else {
                     document.querySelector('.music-add').onclick = () => {};
+                    document.querySelector('.music-add').classList.add('disable');
                 }
             });
 

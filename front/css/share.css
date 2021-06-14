@@ -22,6 +22,8 @@ body {
       height: 40px; }
       body #bg-inner button:active {
         box-shadow: 0px 0px 0px #b98080; }
+    body #bg-inner .disable {
+      background: #a0a0a0; }
     body #bg-inner .title {
       /* Title */
       position: absolute;
@@ -133,8 +135,11 @@ body {
           display: flex;
           flex-direction: row;
           margin-bottom: 5px;
+          margin-top: 5px;
           height: 40px;
           align-items: center; }
+          body #bg-inner .props .music-list .music-item .music-title {
+            font-weight: bold; }
           body #bg-inner .props .music-list .music-item span {
             display: block;
             width: 80%; }

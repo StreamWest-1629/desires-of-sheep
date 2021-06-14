@@ -30,6 +30,9 @@ body {
                 box-shadow: 0px 0px 0px #b98080;
             }
         }
+        .disable {
+            background:rgb(160, 160, 160);
+        }
 
         .title {
             /* Title */
@@ -173,8 +176,12 @@ body {
                     display: flex;
                     flex-direction: row;
                     margin-bottom: 5px;
+                    margin-top: 5px;
                     height: 40px;
                     align-items:center;
+                    .music-title {
+                        font-weight: bold;
+                    }
                     span {
                         display: block;
                         width: 80%;
