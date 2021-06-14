@@ -45,18 +45,81 @@
             <div class="loading">Loading...</div>
         </div>
         <script type="text/javascript">
+
+            var movies = [];
             var renderer = require('./setting-renderer');
             const { TimeSpan } = require('timespan');
+            const log = require('electron-log');
+            const ytdl = require('ytdl-core');
 
             function RecieveValue(event, args) {
+                const len = args.musics.length;
+                const promise = [];
+
+                log.log(args);
+                movies = [];
+
+                for (var i = 0, j = 0; i < args.musics.length; i++) {
+                    if (ytdl.validateURL(args.musics[i].url)) {
+
+                        const url = args.musics[i].url;
+
+                        movies.push({});
+                        promise.push(
+                            ytdl.getInfo(ytdl.getURLVideoID(args.musics[i].url)).then((info) => {
+                                const title = info.videoDetails.title;
+                                movies[j] = {url: url, title: title};
+                                j++;
+                                log.log(i.toString() + ": " + title);
+                            }));
+                    }
+                }
+
+                Promise.all(promise).then(() => {
+
+                    loadList(false);
+
+                });
+
             }
             function SendValue() {
+
+                
 
                 return {
                     mode: 'musics',
                     musics: []
                 }
             }
+
+            function loadList(isHide) {
+                if (isHide) {
+                    document.querySelector('#loading').style.opacity = 1;
+                    document.querySelector('#loading').style['z-index'] = 0;
+                }
+
+                const list = document.querySelector('.music-list');
+                list.innerHTML = "";
+                for (var i = 0; i < movies.length; ++i) {
+                    log.log(movies[i].title);
+                    list.innerHTML += "<li id='music-link-" + i + "' class='music-item'><span id='music-title'>" + 
+                        movies[i].title + "</span><button class='delete'>消去</button>";
+                }
+
+                for (var i = 0; i < movies.length; ++i) {
+                    document.querySelector("#music-link-" + i.toString() + " .delete").addEventListener('click', () => {
+                        const index = i;
+                        movies = movies.filter((val, i) => {i != index});
+                        loadList(true);
+                    });
+                }
+
+                if (isHide) {
+                    document.querySelector('#loading').style.opacity = 0;
+                    document.querySelector('#loading').style['z-index'] = -100;
+                }
+            }
+
             window.onload = function() {
                 renderer.Initializer(RecieveValue, SendValue);
                 document.querySelector('#loading').style.opacity = 0;
