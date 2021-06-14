@@ -90,7 +90,7 @@
             function SendValue() {
                 return {
                     mode: 'musics',
-                    musics: []
+                    musics: movies
                 }
             }
 
@@ -121,18 +121,17 @@
                     }
 
                     list.innerHTML += "<li id='music-link-" + i + "' class='music-item'><span id='music-title'>" + 
-                        title + "</span><button class='delete'>消去</button>";
-                }
-
-                for (var i = 0; i < movies.length; ++i) {
-                    document.querySelector("#music-link-" + i.toString() + " .delete").addEventListener('click', () => {
-                        const index = i;
-                        movies = movies.filter((val, i) => {i != index});
-                        loadList(true);
-                    });
+                        title + "</span><button class='delete' onclick='deleteItem(" + i + ");'>消去</button>";
                 }
 
                 if (isHide) { renderer.EndLoad(); }
+            }
+
+            function deleteItem(index) {
+                movies = movies.filter((n, i) => i !== index);
+                log.log(index);
+                log.log(movies);
+                loadList(false);
             }
 
             window.onload = function() {

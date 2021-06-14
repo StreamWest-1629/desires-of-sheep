@@ -55,6 +55,7 @@ ipcMain.on('update', (event, args) => {
             sleep.GetFromData();
             break;
         case 'music':
+            Store.SetOptions('music', args);
             break;
     }
     
