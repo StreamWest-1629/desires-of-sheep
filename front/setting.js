@@ -43,6 +43,8 @@ exports.Open = function() {
 }
 
 ipcMain.on('update', (event, args) => {
+    
+    log.log(args);
     switch (args['mode']) {
         case 'initialize':
             event.returnValue = Store.GetOptions();
@@ -54,8 +56,8 @@ ipcMain.on('update', (event, args) => {
             });
             sleep.GetFromData();
             break;
-        case 'music':
-            Store.SetOptions('music', args);
+        case 'musics':
+            Store.SetOptions('musics', args.musics);
             break;
     }
     

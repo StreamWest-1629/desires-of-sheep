@@ -20,7 +20,7 @@ exports.Initializer = function(recieve, send) {
         // var span = new TimeSpan(args['sleep-span']);
         // const timestr = ('00' + time.hours).slice(-2) + ":" + ('00' + time.minutes).slice(-2);
         // document.querySelector('label[for="sleep-time"]').textContent = timestr;
-        ReceiveValue(event, args) 
+        ReceiveValue(event, args, () => {})
     });
 
     log.log("Sended");
