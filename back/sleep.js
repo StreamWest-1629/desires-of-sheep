@@ -6,6 +6,7 @@ const { TimeSpan } = require('timespan');
 const store = require('./store');
 const cron = require('node-cron');
 const time = require('./time');
+const player = require('../func/player');
 const log = require('electron-log');
 const request = require('request');
 
@@ -14,6 +15,7 @@ var endTime;
 var checkTimes = 60;
 var beforeTime;
 var difNetAndLocal = 0;
+player.OnNext = random;
 
 init();
 
@@ -103,12 +105,31 @@ function Check(datenow) {
 
 function shutdown() {
     // new Notification({ title: toString(difNetAndLocal), body: toString(checkTimes) }).show();
+    
+    player.Resume();
 }
 
 function near(isNear) {
     if (isNear == true) {
-        
+        player.Resume();
     } else {
-
+        player.Pause();
     }
+}
+
+function random() {
+    const musics = store.GetOptions().musics;
+
+    // log.log(musics);
+    var select;
+
+    do {
+        select = Math.floor(Math.random() * musics.length);
+    } while(select >= musics.length);
+
+    player.Append(musics[select].url);
+}
+
+for (var i = 0; i < 3; i++) {
+    random();
 }

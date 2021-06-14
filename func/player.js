@@ -9,6 +9,9 @@ var initialized = false;
 var playQueue = [];
 exports.OnNext = function(arg) {}
 
+app.on('load', () => {
+});
+
 ipcMain.on('music-ended', (event, arg) => {
     exports.OnNext(arg);
     pop(true);
@@ -27,12 +30,21 @@ exports.Append = Append;
 exports.Pause = Pause;
 
 function Resume() {
-    if (playerWindow == null) { init(); }
-    playerWindow.webContents.send('music-play');
+    if (playerWindow != null) {
+        playerWindow.webContents.send('music-play');
+    } else {
+        initialized = true;
+        init();
+        if (playQueue.length == 1 && initialized) {
+            load();
+        }
+    }
 }
 
 function Pause() {
-    playerWindow.webContents.send('music-pause');
+    if (playerWindow != null) {
+        playerWindow.webContents.send('music-pause');
+    }
 }
 
 function Append(url) {
@@ -76,7 +88,6 @@ function init() {
     });
 
     playerWindow.loadFile("func/player.html");
-
 
     playerWindow.on('closed',function() {
         electron.session.defaultSession.clearCache(() => {});

@@ -7,16 +7,6 @@ const time = require('./back/time');
 const sleep = require('./back/sleep');
 const autorun = require('./back/autorun');
 const setting = require('./front/setting');
-const player = require('./func/player');
-const path = require('path');
-const { join } = require('path');
-const fs = require('fs');
-const ipcMain = require('electron').ipcMain;
-
-var Promise = require('promise');
-var CronJob = require('node-cron');
-const console = require('console');
-var jobs;
 
 require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
