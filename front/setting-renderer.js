@@ -23,8 +23,16 @@ exports.Initializer = function(recieve, send) {
         ReceiveValue(event, args) 
     });
 
+    log.log("Sended");
     // Initialize
-    ipcRenderer.send("update", { mode:"initialize" });
+    ipcRenderer.invoke("update", { mode:"initialize" }).then((result) => {
+        log.log("Sended End");
+        
+        ReceiveValue(null, result);
+
+        document.querySelector('#loading').style.opacity = 0;
+        document.querySelector('#loading').style['z-index'] = -100;
+    });
 
     // Button EventListener
     if (document.querySelector('#option-close') != null) {

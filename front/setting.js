@@ -45,7 +45,8 @@ exports.Open = function() {
 ipcMain.on('update', (event, args) => {
     switch (args['mode']) {
         case 'initialize':
-            break;
+            event.returnValue = Store.GetOptions();
+            return;
         case 'standard':
             Store.SetOptions('sleep', {
                 time: args['sleep']['time']['msecs'],
@@ -59,6 +60,14 @@ ipcMain.on('update', (event, args) => {
     
     event.reply('update-reply', Store.GetOptions());
 });
+
+ipcMain.handle('update', (event, args) => {
+    switch (args['mode']) {
+        case 'initialize':
+            return Store.GetOptions();
+            
+    }
+})
 
 ipcMain.on('kill', (event) => {
     if (setWindow != null) {
