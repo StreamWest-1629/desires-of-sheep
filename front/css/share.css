@@ -18,7 +18,7 @@ body {
       color: white;
       background: #fad2d2;
       box-shadow: 3px 3px 3px #b98080;
-      transition: 0.3s;
+      transition: 0.3s ease-out;
       height: 40px; }
       body #bg-inner button:active {
         box-shadow: 0px 0px 0px #b98080; }
@@ -172,3 +172,24 @@ body {
       body #bg-inner .buttons button {
         right: 0px;
         width: 100px; }
+  body #loading {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: #b98080;
+    color: #ebcdcd;
+    align-items: center;
+    text-align: center;
+    transition: .2s; }
+    body #loading .loading {
+      display: block;
+      position: absolute;
+      top: 30%;
+      width: 300px;
+      left: calc(50% - 150px);
+      text-align: center;
+      font-size: 3em;
+      text-shadow: 0 5px 10px #00000080;
+      transition: .3s; }

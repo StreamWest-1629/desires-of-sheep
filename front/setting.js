@@ -25,7 +25,7 @@ exports.Open = function() {
             modal: false,
             minimizable: false,
             maximizable: false,
-            frame: true,
+            frame: false,
             icon: __dirname + "/../img/icon.jpg"
         });
 

@@ -41,6 +41,9 @@
                 <button id="option-back">BACK</button>
             </div>
         </div>
+        <div id="loading">
+            <div class="loading">Loading...</div>
+        </div>
         <script type="text/javascript">
             var renderer = require('./setting-renderer');
             const { TimeSpan } = require('timespan');
@@ -54,7 +57,11 @@
                     musics: []
                 }
             }
-            window.onload = function() {renderer.Initializer(RecieveValue, SendValue)};
+            window.onload = function() {
+                renderer.Initializer(RecieveValue, SendValue);
+                document.querySelector('#loading').style.opacity = 0;
+                document.querySelector('#loading').style['z-index'] = -100;
+            };
 
         </script>
     </body>
