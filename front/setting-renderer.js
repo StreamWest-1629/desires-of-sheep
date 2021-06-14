@@ -4,8 +4,8 @@ const log = require('electron-log');
 const timespan = require('timespan');
 const { TimeSpan } = require('timespan');
 
-var SendValue
-var ReceiveValue
+var SendValue = () => {}
+var ReceiveValue= () => {}
 
 exports.Initializer = function(recieve, send) {
     
@@ -36,13 +36,13 @@ exports.Initializer = function(recieve, send) {
 
     // Button EventListener
     if (document.querySelector('#option-close') != null) {
-        document.querySelector('#option-close').addEventListener('click', function(event) { onclose() });
+        document.querySelector('#option-close').onclick = onclose;
     }
     if (document.querySelector('#option-save') != null) {
-        document.querySelector('#option-save').addEventListener('click', function(event) { onsave() });
+        document.querySelector('#option-save').onclick = onsave;
     }
     if (document.querySelector('#option-back') != null){
-        document.querySelector('#option-back').addEventListener('click', function(event) { onback() });
+        document.querySelector('#option-back').onclick = onback;
     }
 };
 
@@ -68,5 +68,18 @@ function endLoad() {
     }
 }
 
+function ChangeSaveStable(isEnable) {
+    if (isEnable) {
+        document.querySelector('#option-save').onclick = onsave;
+        document.querySelector('#option-save').classList.remove('disable');
+    } else {
+        document.querySelector('#option-save').onclick = none;
+        document.querySelector('#option-save').classList.add('disable');
+    }
+}
+
+function none() {}
+
 exports.StartLoad = startLoad;
 exports.EndLoad = endLoad;
+exports.ChangeSaveStable = ChangeSaveStable;

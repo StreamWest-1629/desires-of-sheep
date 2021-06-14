@@ -32,6 +32,7 @@ body {
         }
         .disable {
             background:rgb(160, 160, 160);
+            box-shadow: 3px 3px 3px gray;
         }
 
         .title {
@@ -249,7 +250,7 @@ body {
         color: rgb(235, 205, 205);
         align-items: center;
         text-align: center;
-        transition: .2s;
+        transition: .5s;
         .loading {
             display: block;
             position: absolute;

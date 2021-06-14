@@ -62,6 +62,11 @@
                 const spanstr = span.totalHours().toString().slice(0, 5) + "時間";
                 document.querySelector('label[for="sleep-time"]').textContent = timestr;
                 document.querySelector('label[for="sleep-span"]').textContent = spanstr;
+                
+                document.querySelector('#sleep-time').value = timestr;
+                document.querySelector('#sleep-span').value = ('00' + span.hours).slice(-2) + ":" + ('00' + span.minutes).slice(-2);
+
+                CheckSavable();
 
                 finishFunc();
             }
@@ -81,6 +86,21 @@
             window.onload = function() {
                 renderer.Initializer(RecieveValue, SendValue);
             };
+            document.querySelector('#sleep-span').addEventListener('change', () => {CheckSavable()});
+
+            function CheckSavable() {
+                const sleepSpan = (document.querySelector('#sleep-span').value).split(':');
+                const { log } = require('electron-log');
+
+                var span = new TimeSpan(0, 0, parseInt(sleepSpan[1]), parseInt(sleepSpan[0]));
+                log(span.hours);
+                var isErr = false;
+                if (span.hours < 7) {
+                    isErr = true;
+
+                }
+                renderer.ChangeSaveStable(!isErr);
+            }
 
         </script>
     </body>

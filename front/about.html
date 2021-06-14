@@ -15,5 +15,11 @@
                 <button id="option-back">OK</button>
             </div>
         </div>
+        <script>
+            const renderer = require('./setting-renderer');
+            window.onload = () => {
+                renderer.Initializer(() => {}, () => {});
+            }
+        </script>
     </body>
 </html>
