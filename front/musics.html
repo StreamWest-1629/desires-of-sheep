@@ -32,7 +32,7 @@
                 </ul>
                 <div class="music-editor">
                     <input type="text" class="music-url" placeholder="Youtubeリンク"></textarea>
-                    <button class="music-add">追加</button>
+                    <button class="music-add", onclick="() => {}">追加</button>
                 </div>
                 
             </div>
@@ -52,7 +52,7 @@
             const log = require('electron-log');
             const ytdl = require('ytdl-core');
 
-            function RecieveValue(event, args) {
+            function RecieveValue(event, args, finalyFunc) {
                 const len = args.musics.length;
                 const promise = [];
 
@@ -78,8 +78,13 @@
                 Promise.all(promise).then(() => {
 
                     loadList(false);
+                    finalyFunc();
 
                 });
+
+                if (promise.length == 0) {
+                    finalyFunc();
+                }
 
             }
             function SendValue() {
@@ -89,18 +94,34 @@
                 }
             }
 
+            function addMusic() {
+                const url = document.querySelector('.music-url').value;
+
+                log.log("addMusic()");
+                ytdl.getInfo(ytdl.getURLVideoID(url)).then((info) => {
+                    const title = info.videoDetails.title;
+                    movies.push({ url: url, title: title });
+                    loadList(false);
+                })
+            }
+
             function loadList(isHide) {
-                if (isHide) {
-                    document.querySelector('#loading').style.opacity = 1;
-                    document.querySelector('#loading').style['z-index'] = 0;
-                }
+                if (isHide) { renderer.StartLoad(); }
 
                 const list = document.querySelector('.music-list');
                 list.innerHTML = "";
                 for (var i = 0; i < movies.length; ++i) {
                     log.log(movies[i].title);
+                    var title;
+
+                    if (movies[i].title.length >= 20) {
+                        title = movies[i].title.substr(0, 19) + "…";
+                    } else {
+                        title = movies[i].title;
+                    }
+
                     list.innerHTML += "<li id='music-link-" + i + "' class='music-item'><span id='music-title'>" + 
-                        movies[i].title + "</span><button class='delete'>消去</button>";
+                        title + "</span><button class='delete'>消去</button>";
                 }
 
                 for (var i = 0; i < movies.length; ++i) {
@@ -111,15 +132,20 @@
                     });
                 }
 
-                if (isHide) {
-                    document.querySelector('#loading').style.opacity = 0;
-                    document.querySelector('#loading').style['z-index'] = -100;
-                }
+                if (isHide) { renderer.EndLoad(); }
             }
 
             window.onload = function() {
                 renderer.Initializer(RecieveValue, SendValue);
             };
+
+            document.querySelector('.music-url').addEventListener('input', () => {
+                if (ytdl.validateURL(document.querySelector('.music-url').value)) {
+                    document.querySelector('.music-add').onclick = addMusic;
+                } else {
+                    document.querySelector('.music-add').onclick = () => {};
+                }
+            });
 
         </script>
     </body>

@@ -51,13 +51,15 @@
                 ipcRenderer.send('gotoMusics');
             }
 
-            function RecieveValue(event, args) {
+            function RecieveValue(event, args, finishFunc) {
                 var time = new TimeSpan(args['sleep-time']);
                 var span = new TimeSpan(args['sleep-span']);
                 const timestr = ('00' + time.hours).slice(-2) + ":" + ('00' + time.minutes).slice(-2);
                 const spanstr = span.totalHours().toString().slice(0, 5) + "時間";
                 document.querySelector('label[for="sleep-time"]').textContent = timestr;
                 document.querySelector('label[for="sleep-span"]').textContent = spanstr;
+
+                finishFunc();
             }
             function SendValue() {
 
@@ -74,8 +76,6 @@
             }
             window.onload = function() {
                 renderer.Initializer(RecieveValue, SendValue);
-                document.querySelector('#loading').style.opacity = 0;
-                document.querySelector('#loading').style['z-index'] = -100;
             };
 
         </script>

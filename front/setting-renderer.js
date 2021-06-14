@@ -28,10 +28,10 @@ exports.Initializer = function(recieve, send) {
     ipcRenderer.invoke("update", { mode:"initialize" }).then((result) => {
         log.log("Sended End");
         
-        ReceiveValue(null, result);
+        ReceiveValue(null, result, () => {
+            endLoad();
+        });
 
-        document.querySelector('#loading').style.opacity = 0;
-        document.querySelector('#loading').style['z-index'] = -100;
     });
 
     // Button EventListener
@@ -55,3 +55,14 @@ function onsave() {
 function onback() {
     ipcRenderer.send("gotoSettings");
 }
+function startLoad() {
+    document.querySelector('#loading').style.opacity = 1;
+    document.querySelector('#loading').style['z-index'] = 0;
+}
+function endLoad() {
+    document.querySelector('#loading').style.opacity = 0;
+    document.querySelector('#loading').style['z-index'] = -100;
+}
+
+exports.StartLoad = startLoad;
+exports.EndLoad = endLoad;
