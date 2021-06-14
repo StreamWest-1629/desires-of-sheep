@@ -105,8 +105,6 @@ function Check(datenow) {
 
 function shutdown() {
     // new Notification({ title: toString(difNetAndLocal), body: toString(checkTimes) }).show();
-    
-    player.Resume();
 }
 
 function near(isNear) {
