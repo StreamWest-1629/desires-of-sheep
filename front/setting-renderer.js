@@ -56,12 +56,16 @@ function onback() {
     ipcRenderer.send("gotoSettings");
 }
 function startLoad() {
-    document.querySelector('#loading').style.opacity = 1;
-    document.querySelector('#loading').style['z-index'] = 0;
+    if (document.querySelector('#loading') != null) {
+        document.querySelector('#loading').style.opacity = 1;
+        document.querySelector('#loading').style['z-index'] = 0;
+    }
 }
 function endLoad() {
-    document.querySelector('#loading').style.opacity = 0;
-    document.querySelector('#loading').style['z-index'] = -100;
+    if (document.querySelector('#loading') != null) {
+        document.querySelector('#loading').style.opacity = 0;
+        document.querySelector('#loading').style['z-index'] = -100;
+    }
 }
 
 exports.StartLoad = startLoad;

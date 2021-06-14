@@ -28,7 +28,7 @@
                     <li class="prop has-btn">
                         <span class="prop-title">バージョン情報</span>
                         <label for="prop-version">1.0.0</label>
-                        <button id="prop-version" name="prop-version">バージョン</button>
+                        <button id="prop-version" name="prop-version" onclick="GotoAbout()">バージョン</button>
                     </li>
                 </ul>
             </div>
@@ -49,6 +49,10 @@
 
             function GotoMusics() {
                 ipcRenderer.send('gotoMusics');
+            }
+
+            function GotoAbout() {
+                ipcRenderer.send('gotoAbout');
             }
 
             function RecieveValue(event, args, finishFunc) {

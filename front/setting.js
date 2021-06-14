@@ -86,3 +86,7 @@ ipcMain.on('gotoMusics', (event) => {
 ipcMain.on('gotoSettings', () => {
     setWindow.webContents.loadFile('front/setting.html');
 })
+
+ipcMain.on('gotoAbout', () => {
+    setWindow.webContents.loadFile('front/about.html');
+});
