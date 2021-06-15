@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset='utf-8'>
+        <title>Setting</title>
+        <link rel="stylesheet" href="share.css">
+    </head>
+    <body>
+        <div id="loading">
+            <div class="loading-text">Loading...</div>
+        </div>
+        <div id="bg">
+            <div id="bg-inner">
+                <div class="title">
+                    <h1>Settings</h1>
+                    <h2>各種設定を行います。</h2> 
+                </div>
+                <div class="properties">
+                    <ul class="props-list">
+                        <li class="prop-item has-time">
+                            <span class="prop-title">就寝時間</span>
+                            <label for="sleep-time"></label>
+                            <input id="sleep-time" type="time" name="sleep-time">
+                        </li>
+                        <li class="prop-item has-time">
+                            <span class="prop-title">睡眠時間</span>
+                            <label for="sleep-span"></label>
+                            <input id="sleep-span" type="time" name="sleep-span">
+                        </li>
+                        <li class="prop-item has-btn">
+                            <span class="prop-title">就寝前に再生する音楽の設定</span>
+                            <label for="prop-musics"></label>
+                            <button id="prop-musics" name="prop-musics" onclick="GotoMusic()">設定...</button>
+                        </li>
+                        <li class="prop-item has-btn">
+                            <span class="prop-title">バージョン情報</span>
+                            <label for="prop-version">1.0.0</label>
+                            <button id="prop-version" name="prop-version" onclick="GotoAbout()">バージョン情報</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="buttons">
+                    <button id="option-save">SAVE</button>
+                    <button id="option-close">CLOSE</button>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+
+            const renderer = require('./settings-renderer');
+            const { TimeSpan } = require('timespan');
+
+            const timeLabel = document.querySelector('label[for="sleep-time"]');
+            const spanLabel = document.querySelector('label[for="sleep-span"]');
+            const musicsLabel = document.querySelector('label[for="prop-musics"]');
+            const timeTime = document.querySelector('#sleep-time');
+            const spanTime = document.querySelector('#sleep-span');
+
+            window.onload = () => {
+                renderer.Initialize(UpdateFunc, SendFunc);
+            }
+
+            function UpdateFunc(args) {
+                return new Promise((resolve, reject) => {
+                    const time = new TimeSpan(args.timeMs);
+                    const span = new TimeSpan(args.spanMs);
+                    const timeStr = `${('00' + time.hours).slice(-2)}:${('00' + time.minutes).slice(-2)}`;
+                    const spanStr = `${span.totalHours().toString().slice(0, 5)}時間`;
+                    const musicsStr = `${args.musics.length.toString()}項目`;
+                    timeLabel.textContent = timeStr;
+                    spanLabel.textContent = spanStr;
+                    musicsLabel.textContent = musicsStr;
+
+                    timeTime.value = timeStr;
+                    spanTime.value = `${('00' + span.hours).slice(-2)}:${('00' + span.minutes).slice(-2)}`;
+
+                    CheckSavable();
+                    resolve();
+                })
+            }
+
+            function SendFunc() {
+                return new Promise((resolve, reject) => {
+                    const sleepTime = timeTime.value.split(':');
+                    const sleepSpan = spanTime.value.split(':');
+                    const Time = new TimeSpan(0, 0, parseInt(sleepTime[1]), parseInt(sleepTime[0]));
+                    const Span = new TimeSpan(0, 0, parseInt(sleepSpan[1]), parseInt(sleepSpan[0]));
+
+                    renderer.SetSleep({
+                        timeMs: Time.totalMilliseconds(),
+                        spanMs: Span.totalMilliseconds()
+                    });
+
+                    resolve();
+                })
+            }
+
+            function CheckSavable() {
+
+            }
+
+        </script>
+    </body>
+</html>

@@ -1,17 +1,22 @@
 'use strict';
 
 const { app, BrowserWindow, ipcMain, session } = require('electron');
+const store = require('../func/store');
 var settingsWindow = null;
+
+const settingsPath = 'src/front/settings.html';
+const musicsPath = 'src/front/musics.html';
+const aboutPath = 'src/front/about.html';
 
 exports.Open = Open;
 
-function Open() {
+function Open(iconPath) {
     if (settingsWindow == null) {
         settingsWindow = new BrowserWindow({
             width: 600,
             height: 430,
             autoHideMenuBar: true,
-            webPrefences: {
+            webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false
             }, 
@@ -22,10 +27,10 @@ function Open() {
             minimizable: false,
             maximizable: false,
             frame: false,
-            icon: `${__dirname}/img/icon.jpg`
+            icon: iconPath
         });
 
-        settingsWindow.loadFile('front/settings.html');
+        settingsWindow.loadFile(settingsPath);
         settingsWindow.webContents.openDevTools();
 
         settingsWindow.on('closed', function() {
@@ -36,4 +41,17 @@ function Open() {
 
 ipcMain.on('gotoSettings', () => {
     settingsWindow.webContents.loadFile('front/settings.html');
+})
+
+ipcMain.handle('getData', () => {
+    const result = store.GetOptions();
+    return result;
+})
+
+ipcMain.handle('setSleep', (event, args) => {
+    store.SetSleepOptions(args);
+})
+
+ipcMain.handle('setMusics', (evetn, args) => {
+    store.SetMusicsOptions(args);
 })

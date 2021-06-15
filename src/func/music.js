@@ -1,6 +1,7 @@
 'use strict';
 
 const electron = require('electron');
+const { log } = require('electron-log');
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 var playerWindow = null;
@@ -16,15 +17,15 @@ function PlayStart(urls = []) {
         Append(urls);
     }
     isPlaying = true;
-    if (playWindow == null) {
+    if (playerWindow == null) {
         load();
     } else {
-        playWindow.webContents.send('music-resume');
+        playerWindow.webContents.send('music-resume');
     }
 }
 
 function Append(urls = []) {
-    playQueue.push(url);
+    playQueue.push(urls);
 }
 
 function Pause() {
@@ -57,6 +58,7 @@ function load() {
     }
 
     function inload() {
+        log(playQueue);
         playerWindow.webContents.send('music-load-and-play', { url: playQueue[0] });
     }
 }

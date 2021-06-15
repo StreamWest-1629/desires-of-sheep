@@ -1,16 +1,15 @@
 'use strict';
-
-const { app, Tray, session } = require('electron');
-// const { Open } = require('./win/settings');
+const electron = require('electron');
+const tray = require('./src/front/task-tray');
 
 require('electron-reload')(`${__dirname}/src`, {
     electron: require(`${__dirname}/node_modules/electron`)
 });
 
-app.on('window-all-closed', () => {
-    session.defaultSession.clearCache(() => {});
+electron.app.on('window-all-closed', () => {
+    electron.session.defaultSession.clearCache(() => {});
 })
 
-app.on('ready', () => {
-    require('./src/front/task-tray');
+electron.app.on('ready', () => {
+    tray.Run();
 });

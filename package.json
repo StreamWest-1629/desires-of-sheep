@@ -4,7 +4,9 @@
   "description": "For Sleep",
   "main": "main.js",
   "scripts": {
-    "electron": "electron . --trace-warning"
+    "hot-reload": "npm-run-all --parallel electron sass",
+    "electron": "electron . --trace-warning",
+    "sass": "node-sass --watch src/front/share.scss src/front/share.css" 
   },
   "repository": {
     "type": "git",

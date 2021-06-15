@@ -10,7 +10,7 @@ exports.GetMusicInfo = getMusicInfo;
 function getMusicUrl(url) {
     return new Promise((resolve, reject) => {
         getInfo(getURLVideoID(url)).then((info) => {
-            const audios = filsterFormats(info.formats, 'audioonly');
+            const audios = filterFormats(info.formats, 'audioonly');
             resolve(audios[0].url);
         })
     });

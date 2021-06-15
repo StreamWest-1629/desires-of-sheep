@@ -1,57 +1,69 @@
 'use strict';
 
 const { ipcRenderer } = require('electron');
-const store = require('../func/store');
+var UpdateFunc;
+var SendFunc;
 
-exports.SetSleep = store.SetSleepOptions;
-exports.SetTime = store.SetTimeOptions;
-exports.SetMusics = store.SetMusicsOptions;
-exports.UpdateFunc = updateFuncDefault;
-exports.SendFunc = sendFuncDefault;
+exports.SetSleep = SetSleep;
+exports.SetMusic = SetMusic;
+exports.SetSaveStable = SetSaveStable;
+exports.Initialize = Initialize;
 
 const closeBtn = document.querySelector('#option-close');
 const saveBtn = document.querySelector('#option-save');
 const backBtn = document.querySelector('#option-back');
 
-function updateFuncDefault(saveData = GetOptions()) {
-    return new Promise((resolve, reject) => {
+// function updateFuncDefault(saveData) {
+//     return new Promise((resolve, reject) => {
         
-        // This Function is DEMO.
-        // You must this function as Initialize()'s argument.
+//         // This Function is DEMO.
+//         // You must this function as Initialize()'s argument.
 
-        // Todo:
-        // Each Write Usercases
-        resolve();
-    })
-}
+//         // Todo:
+//         // Each Write Usercases
+//         resolve();
+//     })
+// }
 
-function sendFuncDefault() {
-    return new Promise((resolve, reject) => {
+// function sendFuncDefault() {
+//     return new Promise((resolve, reject) => {
 
-        // This Function is DEMO.
-        // You must this function as Initialize()'s argument.
+//         // This Function is DEMO.
+//         // You must this function as Initialize()'s argument.
 
-        // Todo:
-        // Each Write Usercases and, 
-        // Save data with function; use SetSleep(), SetTime(), or SetMusics().
-        resolve();
-    })
-}
+//         // Todo:
+//         // Each Write Usercases and, 
+//         // Save data with function; use SetSleep(), SetTime(), or SetMusics().
+//         resolve();
+//     })
+// }
 
-function Initialize(
-    updateFunc = updateFuncDefault, 
-    sendFunc = sendFuncDefault) {
+function Initialize(updateFunc, sendFunc) {
 
-    exports.UpdateFunc = updateFunc;
-    exports.SendFunc = sendFunc;
-
-    updateFunc(GetOptions()).then(() => {
-        
-    });
+    UpdateFunc = updateFunc;
+    SendFunc = sendFunc;
 
     if (closeBtn != null) { closeBtn.onclick = onclose; }
     if (saveBtn != null) { saveBtn.onclick = onsave; }
     if (backBtn != null) { backBtn.onclick = onback; }
+}
+
+function GetData() {
+    ipcRenderer.invoke('getData').then((args) => {
+        UpdateFunc(args);
+    });
+}
+
+function SetSleep(args) {
+    ipcRenderer.invoke('setSleep', args).then(() => {
+        GetData();
+    })
+}
+
+function SetMusic(args) {
+    ipcRenderer.invoke('setMusics', args).then(() => {
+        GetData();
+    })
 }
 
 function onclose() {
@@ -59,8 +71,8 @@ function onclose() {
 }
 
 function onsave() {
-    exports.SendFunc().then(() => {
-        exports.UpdateFunc().then(() => {})
+    SendFunc().then(() => {
+        UpdateFunc()
     })
 }
 
