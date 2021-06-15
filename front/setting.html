@@ -60,9 +60,11 @@
                 var span = new TimeSpan(args['sleep-span']);
                 const timestr = ('00' + time.hours).slice(-2) + ":" + ('00' + time.minutes).slice(-2);
                 const spanstr = span.totalHours().toString().slice(0, 5) + "時間";
+                const musicstr = args.musics.length.toString() + "項目";
                 document.querySelector('label[for="sleep-time"]').textContent = timestr;
                 document.querySelector('label[for="sleep-span"]').textContent = spanstr;
-                
+                document.querySelector('label[for="prop-musics"]').textContent = musicstr;
+
                 document.querySelector('#sleep-time').value = timestr;
                 document.querySelector('#sleep-span').value = ('00' + span.hours).slice(-2) + ":" + ('00' + span.minutes).slice(-2);
 
