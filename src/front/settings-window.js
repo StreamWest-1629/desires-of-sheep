@@ -34,23 +34,6 @@ function Open() {
     }
 }
 
-ipcMain.on('update', (event, args) => {
-
-    // todo: write listenner
-});
-
-ipcMain.handle('initialize', (event) => {
-    
-    // todo: write listenner
-})
-
-
-ipcMain.on('kill', (event) => {
-    if (settingsWindow != null) { 
-        settingsWindow.close();
-    }
-});
-
 ipcMain.on('gotoSettings', () => {
     settingsWindow.webContents.loadFile('front/settings.html');
 })
