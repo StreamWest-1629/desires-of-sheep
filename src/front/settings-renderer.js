@@ -43,6 +43,8 @@ function Initialize(updateFunc, sendFunc) {
     UpdateFunc = updateFunc;
     SendFunc = sendFunc;
 
+    GetData();
+
     if (closeBtn != null) { closeBtn.onclick = onclose; }
     if (saveBtn != null) { saveBtn.onclick = onsave; }
     if (backBtn != null) { backBtn.onclick = onback; }

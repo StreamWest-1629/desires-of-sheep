@@ -1,5 +1,149 @@
 body {
+
+    --light: #ffebea;
+    --midium: #f7d6d6;
+    --dark: #dd6150;
+    --shadow: #72281f;
+
+    button, input[type="time"] {
+
+        height: 35px;
+        width: 100px;
+        margin-left: 5px;
+        margin-right: 5px;
+        padding: none;
+
+        border-radius: 20px;
+        background: var(--dark);
+        border: none;
+        color: var(--light);
+        text-align: center;
+        font-size: 15px;
+        font-weight: bolder;
+        box-shadow: 3px 3px 3px 0px var(--shadow);
+        transition: 0.3s;
+
+        &:active {
+            box-shadow: 0px 0px 0px 0px var(--shadow);
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+
+    input[type="time"] {
+        width: 80px;
+        padding-left: 20px;
+    }
+
+    #loading {
+        display: none;
+    }
     #bg {
-        
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: var(--dark);
+
+        #bg-inner {
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            top: 20px;
+            bottom: 20px;
+            padding: 20px;
+            background-color: var(--midium);
+            border-radius: 10px;
+            box-shadow: 10px 10px 0px 0px var(--shadow);
+
+            .title {
+                position: absolute;
+                left: 20px;
+                right: 20px;
+                top: 20px;
+                height: 50px;
+                color: var(--shadow);
+
+                h1 {
+                    position: absolute;
+                    left: 0px;
+                    top: 10px;
+                    width: 50%;
+                    margin-top: -20px;
+                    margin-bottom: -20px;
+                }
+
+                h2 {
+                    position: absolute;
+                    font-size: 20px;
+                    right: 0px;
+                    top: 20px;
+                    margin-top: -20px;
+                    margin-bottom: -20px;
+                }
+            }
+
+            .properties {
+                position: absolute;
+                left: 20px;
+                right: 20px;
+                top: 70px;
+                bottom: 70px;
+
+                background: var(--light);
+                border: 5px solid (--dark);
+                border-radius: 30px;
+                box-shadow: -3px -3px 1px 1px var(--shadow);
+
+                .props-list {
+                    padding: 0px;
+                    margin: 0px;
+                    position: absolute;
+                    left: 20px;
+                    right: 20px;
+                    top: 20px;
+                    bottom: 20px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .prop-item {
+                        display: block;
+                        margin: 5px;
+                        margin: 5px;
+                        height: 50px;
+                        
+                        span {
+                            font-weight: bold;
+                            color: var(--shadow);
+                            font-size: 18px;
+                        }
+
+                        label {
+                            position: absolute;
+                            left: 50%;
+                            color: var(--dark);
+                        }
+
+                        button, input {
+                            position: absolute;
+                            margin-top: -7px;
+                            right: 0px;
+                        }
+                    }
+                }
+            }
+
+            .buttons {
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+                height: 50px;
+                display: flex;
+                flex-direction: row;
+                
+            }
+        }
     }
 }

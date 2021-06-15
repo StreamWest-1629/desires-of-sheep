@@ -26,7 +26,7 @@ function Open(iconPath) {
             modal: false,
             minimizable: false,
             maximizable: false,
-            frame: false,
+            frame: true,
             icon: iconPath
         });
 
