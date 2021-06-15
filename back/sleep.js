@@ -12,9 +12,9 @@ const request = require('request');
 
 var startTime;
 var endTime;
-var checkTimes = 720;
+var checkTimes = 60;
 var beforeTime;
-var difNetAndLocal = new TimeSpan(0);
+var difNetAndLocal = 0;
 player.OnNext = random;
 
 init();
@@ -25,7 +25,7 @@ log.log(endTime);
 function init() {
     GetFromData();
     check();
-    cron.schedule('*/5 * * * * *', () => {
+    cron.schedule('* * * * *', () => {
         check();
     });
 }
@@ -45,19 +45,15 @@ function GetFromData() {
 function check() {
     const localNow = new Date();
 
-    log.log("schedule launched");
-
     // 一時間に一回NTPサーバーから読み取るのを除いて、毎分チェックするときはNTPサーバーとローカルタイムの差分を使用する
-    if (checkTimes < 720) {
-        var dif = timespan.fromDates(beforeTime, localNow)
-        log.log(dif);
-        
-        if (dif.totalSeconds() > 5.5 || dif.totalSeconds() < 4.5) {
+    if (checkTimes < 60) {
+        var dif = timespan.fromDates(beforeTime, localNow, true)
+        if (dif.totalSeconds() > 65 || dif.totalSeconds() < 55) {
             FromNET()
         } else {
             beforeTime = localNow
             checkTimes = checkTimes + 1;
-            Check(localNow.setSeconds(localNow.getSeconds() + difNetAndLocal.totalMilliseconds()))
+            Check(localNow.setSeconds(localNow.getSeconds() + difNetAndLocal))
         }
     // 一時間に一回確実にサーバーから読み取る回
     } else {
@@ -70,15 +66,14 @@ function check() {
 
         try {
             time.LocalNow(function(datenow) {
-                beforeTime = new Date();
-                difNetAndLocal = new TimeSpan(datenow, beforeTime)
-                store.SetOptions('dif-local', difNetAndLocal.totalMilliseconds())
-                log.log(beforeTime);
-                Check(beforeTime.setMilliseconds(beforeTime.getMilliseconds() + difNetAndLocal.totalMilliseconds()))
+                const date = Date.parse(datenow);
+                difNetAndLocal = (date - localNow) / 1000
+                store.SetOptions('dif-local', difNetAndLocal)
+                Check(localNow.setSeconds(localNow.getSeconds() + difNetAndLocal))
             })
         } catch (err) {
-            checkTimes = 720;
-            Check(localNow.setMilliseconds(localNow.getMilliseconds() + difNetAndLocal.totalMilliseconds()))
+            checkTimes = 60;
+            Check(localNow.setSeconds(localNow.getSeconds() + difNetAndLocal))
         }
     }
 
