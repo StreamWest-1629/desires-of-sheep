@@ -4,7 +4,6 @@ const moment = require('moment');
 const { get } = require('request');
 const { getNetworkTime } = require('ntp-client');
 const { getFuzzyLocalTimeFromPoint } = require('@mapbox/timespace');
-const Promise = require('promise');
 
 const geo_options = {
     url: 'https://get.geojs.io/v1/ip/geo.json',

@@ -2,7 +2,6 @@
 
 const electron = require('electron');
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { Promise } = require('promise');
 
 var playerWindow = null;
 var isPlaying = false;

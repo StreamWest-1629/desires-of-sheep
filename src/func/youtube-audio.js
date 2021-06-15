@@ -2,7 +2,6 @@
 
 const electron = require('electron');
 const { validateURL, getInfo, getURLVideoID, filterFormats } = require('ytdl-core');
-const { Promise } = require('promise');
 
 exports.validateURL = validateURL;
 exports.GetMusicUrl = getMusicUrl;
