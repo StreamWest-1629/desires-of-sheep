@@ -4,6 +4,7 @@ var ts = require('@mapbox/timespace');
 const console = require('console');
 var request = require('request');
 var ntpClient = require('ntp-client');
+const moment = require('moment');
 
 // 日時を確認する
 exports.LocalNow = function(then = function(datenow){}) {
@@ -33,7 +34,7 @@ exports.LocalNow = function(then = function(datenow){}) {
                     // タイムゾーンから現在時刻を取得する
 
                     var datenow = ts.getFuzzyLocalTimeFromPoint(date.getTime(), [longitude, latitude]);
-                    then(datenow);
+                    then(datenow.toDate());
                 }
             })
         })
