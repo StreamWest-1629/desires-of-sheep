@@ -28,7 +28,6 @@
     "electron-log": "^4.3.5",
     "electron-store": "^8.0.0",
     "fs": "^0.0.1-security",
-    "momentjs": "^2.0.0",
     "node-cron": "^3.0.0",
     "ntp-client": "^0.5.3",
     "path": "^0.12.7",
