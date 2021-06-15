@@ -8,6 +8,5 @@ require('electron-reload')(`${__dirname}/src`, {
 });
 
 app.on('ready', () => {
-    const tray = new Tray(`${__dirname}/img/icon.jpg`);
-    tray.setToolTip(`Happy`);
+    require('./src/front/task-tray');
 });
