@@ -65,7 +65,8 @@ body {
           top: 18px;
           margin-top: -20px;
           margin-bottom: -20px;
-          width: 60%; }
+          width: 60%;
+          text-align: right; }
       body #bg #bg-inner .properties {
         position: absolute;
         left: 20px;
@@ -158,6 +159,25 @@ body {
             position: absolute;
             right: 10px;
             top: 70px; }
+        body #bg #bg-inner .properties .about {
+          padding-left: 30px;
+          padding-right: 30px;
+          padding-top: 30px;
+          font-weight: bolder;
+          color: var(--dark) !important; }
+          body #bg #bg-inner .properties .about p {
+            margin: 7px; }
+          body #bg #bg-inner .properties .about b {
+            display: block;
+            background: var(--dark);
+            color: var(--light); }
+          body #bg #bg-inner .properties .about .left-align {
+            text-align: left; }
+          body #bg #bg-inner .properties .about .right-align {
+            text-align: right; }
+          body #bg #bg-inner .properties .about a {
+            color: var(--dark);
+            font-size: 150%; }
       body #bg #bg-inner .buttons {
         position: absolute;
         right: 10px;

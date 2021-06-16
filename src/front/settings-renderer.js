@@ -9,37 +9,38 @@ exports.SetMusic = SetMusic;
 exports.SetSaveStable = SetSaveStable;
 exports.Initialize = Initialize;
 exports.GotoMusics = GotoMusics;
+exports.GotoAbout = GotoAbout;
 
 const closeBtn = document.querySelector('#option-close');
 const saveBtn = document.querySelector('#option-save');
 const backBtn = document.querySelector('#option-back');
 
-// function updateFuncDefault(saveData) {
-//     return new Promise((resolve, reject) => {
+function updateFuncDefault(saveData) {
+    return new Promise((resolve, reject) => {
         
-//         // This Function is DEMO.
-//         // You must this function as Initialize()'s argument.
+        // This Function is DEMO.
+        // You must this function as Initialize()'s argument.
 
-//         // Todo:
-//         // Each Write Usercases
-//         resolve();
-//     })
-// }
+        // Todo:
+        // Each Write Usercases
+        resolve();
+    })
+}
 
-// function sendFuncDefault() {
-//     return new Promise((resolve, reject) => {
+function sendFuncDefault() {
+    return new Promise((resolve, reject) => {
 
-//         // This Function is DEMO.
-//         // You must this function as Initialize()'s argument.
+        // This Function is DEMO.
+        // You must this function as Initialize()'s argument.
 
-//         // Todo:
-//         // Each Write Usercases and, 
-//         // Save data with function; use SetSleep(), SetTime(), or SetMusics().
-//         resolve();
-//     })
-// }
+        // Todo:
+        // Each Write Usercases and, 
+        // Save data with function; use SetSleep(), SetTime(), or SetMusics().
+        resolve();
+    })
+}
 
-function Initialize(updateFunc, sendFunc) {
+function Initialize(updateFunc = updateFuncDefault, sendFunc = sendFuncDefault) {
 
     UpdateFunc = updateFunc;
     SendFunc = sendFunc;
@@ -95,4 +96,8 @@ function SetSaveStable(isEnable) {
 
 function GotoMusics() {
     ipcRenderer.send('gotoMusics');
+}
+
+function GotoAbout() {
+    ipcRenderer.send('gotoAbout');
 }

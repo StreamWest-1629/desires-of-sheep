@@ -1,7 +1,7 @@
 'use strict';
 
 const { log } = require('electron-log');
-const { app, BrowserWindow, ipcMain, session } = require('electron');
+const { app, BrowserWindow, ipcMain, session, shell } = require('electron');
 const store = require('../func/store');
 const youtube = require('../func/youtube-audio');
 var settingsWindow = null;
@@ -34,6 +34,16 @@ function Open(iconPath) {
 
         settingsWindow.loadFile(settingsPath);
         settingsWindow.webContents.openDevTools();
+
+        settingsWindow.webContents.on('will-navigate', (event, url) => {
+            event.preventDefault();
+            shell.openExternal(url);
+        })
+        
+        settingsWindow.webContents.on('new-window', (event, url) => {
+            event.preventDefault();
+            shell.openExternal(url);
+        })
 
         settingsWindow.on('closed', function() {
             settingsWindow = null;

@@ -83,6 +83,7 @@ body {
                     margin-top: -20px;
                     margin-bottom: -20px;
                     width: 60%;
+                    text-align: right;
                 }
             }
 
@@ -205,6 +206,33 @@ body {
                         position: absolute;
                         right: 10px;
                         top: 70px;
+                    }
+
+                }
+
+                .about {
+                    padding-left: 30px;
+                    padding-right: 30px;
+                    padding-top: 30px;
+                    font-weight: bolder;
+                    color: var(--dark) !important;
+                    p {
+                        margin: 7px;
+                    }
+                    b {
+                        display: block;
+                        background: var(--dark);
+                        color: var(--light);
+                    }
+                    .left-align {
+                        text-align: left;
+                    }
+                    .right-align {
+                        text-align: right;
+                    }
+                    a {
+                        color: var(--dark);
+                        font-size: 150%;
                     }
 
                 }

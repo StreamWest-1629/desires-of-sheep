@@ -6,7 +6,7 @@
   "scripts": {
     "hot-reload": "npm-run-all --parallel electron sass",
     "electron": "electron . --trace-warning",
-    "sass": "node-sass --watch src/front/share.scss src/front/share.css" 
+    "sass": "node-sass --watch src/front/share.scss src/front/share.css"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/StreamWest-1629/desires-of-sheep#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "@mapbox/timespace": "^2.0.4",
     "auto-launch": "^5.0.5",
     "electron": "^13.1.2",
