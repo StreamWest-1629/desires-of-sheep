@@ -8,6 +8,7 @@ exports.SetSleep = SetSleep;
 exports.SetMusic = SetMusic;
 exports.SetSaveStable = SetSaveStable;
 exports.Initialize = Initialize;
+exports.GotoMusics = GotoMusics;
 
 const closeBtn = document.querySelector('#option-close');
 const saveBtn = document.querySelector('#option-save');
@@ -90,4 +91,8 @@ function SetSaveStable(isEnable) {
         saveBtn.onclick = () => {};
         saveBtn.classList.add('disable');
     }
+}
+
+function GotoMusics() {
+    ipcRenderer.send('gotoMusics');
 }

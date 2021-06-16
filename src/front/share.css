@@ -60,11 +60,12 @@ body {
           margin-bottom: -20px; }
         body #bg #bg-inner .title h2 {
           position: absolute;
-          font-size: 20px;
+          font-size: 15px;
           right: 0px;
-          top: 20px;
+          top: 18px;
           margin-top: -20px;
-          margin-bottom: -20px; }
+          margin-bottom: -20px;
+          width: 60%; }
       body #bg #bg-inner .properties {
         position: absolute;
         left: 20px;
@@ -74,7 +75,8 @@ body {
         background: var(--light);
         border: 5px solid --dark;
         border-radius: 30px;
-        box-shadow: -3px -3px 1px 1px var(--shadow); }
+        box-shadow: -3px -3px 1px 1px var(--shadow);
+        border: 1px dotted var(--shadow); }
         body #bg #bg-inner .properties .props-list {
           padding: 0px;
           margin: 0px;
@@ -102,6 +104,60 @@ body {
               position: absolute;
               margin-top: -7px;
               right: 0px; }
+        body #bg #bg-inner .properties .music-list {
+          position: absolute;
+          left: 25px;
+          top: -16px;
+          bottom: -16px;
+          width: 50%;
+          display: flex;
+          padding: 0px;
+          flex-direction: column;
+          box-sizing: border-box;
+          overflow-y: scroll; }
+          body #bg #bg-inner .properties .music-list::-webkit-scrollbar {
+            display: none; }
+          body #bg #bg-inner .properties .music-list .music-item {
+            display: block;
+            flex-direction: row;
+            border-bottom: 1px dotted var(--dark);
+            min-height: 30px; }
+            body #bg #bg-inner .properties .music-list .music-item .music-title {
+              position: absolute;
+              left: 0px;
+              width: 80%;
+              margin-top: 5px;
+              font-size: 80%;
+              font-weight: bold; }
+            body #bg #bg-inner .properties .music-list .music-item button {
+              display: block;
+              position: absolute;
+              font-size: 60%;
+              right: 0px;
+              margin-top: 3px;
+              height: 20px;
+              width: 20px; }
+        body #bg #bg-inner .properties .music-editor {
+          position: absolute;
+          right: 20px;
+          top: 10px;
+          width: 50%; }
+          body #bg #bg-inner .properties .music-editor input[type="text"] {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: calc(100% - 110px);
+            margin-bottom: 10px;
+            padding: 10px;
+            padding-left: 30px;
+            border: none;
+            border-radius: 30px; }
+            body #bg #bg-inner .properties .music-editor input[type="text"]:focus {
+              outline: none; }
+          body #bg #bg-inner .properties .music-editor button {
+            position: absolute;
+            right: 10px;
+            top: 70px; }
       body #bg #bg-inner .buttons {
         position: absolute;
         right: 10px;
