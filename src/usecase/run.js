@@ -6,6 +6,7 @@ const cron = require('node-cron');
 const moment = require('moment');
 const { Moment } = require('moment');
 const { TimeSpan } = require('timespan');
+const { exec } = require('child_process');
 const { log } = require('electron-log');
 
 const MaxCountNtp = 720;
@@ -60,6 +61,7 @@ function CheckTime(mom) {
         
         // todo: exec shutdown
         log("shutdown")
+        // const child = exec("shutdown -s -t 1 -f");
 
     } else {
         log("no shutdown")
