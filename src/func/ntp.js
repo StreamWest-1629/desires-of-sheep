@@ -32,7 +32,7 @@ function GetLocalTime() {
                 if (err) {
                     reject(err);
                 } else {
-                    const moment_date = getFuzzyLocalTimeFromPoint(date.dateTime(), [longitude, latitude]);
+                    const moment_date = getFuzzyLocalTimeFromPoint(date.getTime(), [longitude, latitude]);
                     resolve(moment_date);
                 }
             });
