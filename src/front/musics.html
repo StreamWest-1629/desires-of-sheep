@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset='utf-8'>
+        <title>Musics</title>
+        <link rel="stylesheet" href="share.css">
+        <script defer src="./../../node_modules/@fortawesome/fontawesome-free/js/fontawesome.js"></script>
+        <script defer src="./../../node_modules/@fortawesome/fontawesome-free/js/solid.js"></script>
+    </head>
+    <body>
+        <div id="loading">
+            <div class="loading-text">Loading...</div>
+        </div>
+        <div id="bg">
+            <div id="bg-inner">
+                <span class="title">
+                    <h1>Musics</h1>
+                    <h2>就寝前音楽は就寝一時間前から連続してランダムに再生されます。</h2>
+                </span>
+                <div class="properties">
+                    <ul class="music-list">
+                    </ul>
+                    <div class="music-editor">
+                        <input type="text" class="music-url" placeholder="Youtube Link">
+                        <button class="music-add disable" onclick="addMusic()">追加</button>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button id="option-save">SAVE</button>
+                    <button id="option-back">BACK</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            var movies = [];
+            const renderer = require('./settings-renderer');
+            const { ipcRenderer } = require('electron');
+            const { log } = require('electron-log');
+            window.onload = () => {
+                renderer.Initialize(UpdateFunc, SendFunc);
+            }
+
+            function UpdateFunc(args) {
+                return new Promise((resolve, reject) => {
+                    ipcRenderer.once('music-titles', (event, result) => {
+                        movies = result;
+                        loadList();
+                        resolve();
+                    })
+                    ipcRenderer.send('music-titles', args.musics);
+                })
+            }
+
+            function SendFunc() {
+                return new Promise((resolve, reject) => {
+                    renderer.SetMusic(
+                        movies
+                    )
+                });
+            }
+
+            function deleteItem(index) {
+                movies = movies.filter((n, i) => i !== index);
+                loadList();
+            }
+
+            function loadList() {
+                const list = document.querySelector('.music-list');
+                const MaxLength = 20;
+                list.innerHTML = "";
+                for (var i = 0; i < movies.length; i++) {
+                    var title;
+
+                    if (movies[i].title.length >= MaxLength) {
+                        title = `${movies[i].title.substr(0, 19)}…`;
+                    } else {
+                        title = movies[i].title;
+                    }
+
+                    list.innerHTML += 
+                        `<li class='music-item'>
+                            <span class='music-title'>
+                                ${title}
+                            </span>
+                            <button class='delete' onclick='deleteItem(${i});'>
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </li>`
+                }
+            }
+
+            function addMusic() {
+                ipcRenderer.once('music-titles', (event, result) => {
+                    movies.push(result[0]);
+                    log(movies);
+                    loadList();
+                })
+                ipcRenderer.send('music-titles', [{url: document.querySelector('.music-url').value}]);
+            }
+        </script>
+    </body>
+</html>

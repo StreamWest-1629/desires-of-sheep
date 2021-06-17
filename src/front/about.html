@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset='utf-8'>
+        <title>About</title>
+        <link rel="stylesheet" href="share.css">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <script src="./../../node_modules/@fortawesome/fontawesome-free/js/brands.js"></script>
+        <script src="./../../node_modules/@fortawesome/fontawesome-free/js/fontawesome.js"></script>
+        <script src="./../../node_modules/@fortawesome/fontawesome-free/js/solid.js"></script>
+    </head>
+    <body>
+        <div id="loading">
+            <div class="loading-text">Loading...</div>
+        </div>
+        <div id="bg">
+            <div id="bg-inner">
+                <span class="title">
+                    <h1>About</h1>
+                    <h2>生産者表示</h2>
+                </span>
+                <div class="properties">
+                    <div class="about">
+                        <p class="left-align">このアプリケーションは「無駄開発」をテーマに作成されました。</p>
+                        <p class="left-align"><b>このアプリケーションの使用によって発生した、いかなる損害もその責任を負いかねます。ご了承ください。</b></p>
+                        <p class="right-align">製作者(@StreamWest1629)</p>
+                        <p class="right-align">
+                            <a href="https://twitter.com/StreamWest1629"><i class="fab fa-twitter"></i></a>
+                            <a href="https://github.com/streamwest-1629/desires-of-sheep"><i class="fab fa-github"></i></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button id="option-back">OK</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            const renderer = require('./settings-renderer');
+            window.onload = () => {
+                renderer.Initialize();
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Setting</title>
+        <link rel="stylesheet" href="css/share.css">
+    </head>
+    <body>
+        <div id="bg-inner">
+            <div class="title"><h1 class="win-title">Musics</h1>
+            </div><div class="description">
+                音楽は就寝一時間前から継続的かつランダムに再生されます。<br>
+            </div>
+            <div class="props">
+                <ul class="music-list">
+                </ul>
+                <div class="music-editor">
+                    <input type="text" class="music-url" placeholder="Youtubeリンク"></textarea>
+                    <button class="music-add disable", onclick="() => {}">追加</button>
+                </div>
+                
+            </div>
+            <div class="buttons">
+                <button id="option-save">SAVE</button>
+                <button id="option-back">BACK</button>
+            </div>
+        </div>
+        <div id="loading">
+            <div class="loading">Loading...</div>
+        </div>
+        <script type="text/javascript">
+
+            var movies = [];
+            var renderer = require('./setting-renderer');
+            const { TimeSpan } = require('timespan');
+            const log = require('electron-log');
+            const ytdl = require('ytdl-core');
+
+            function RecieveValue(event, args, finalyFunc) {
+                const len = args.musics.length;
+                const promise = [];
+
+                log.log(args);
+                movies = [];
+
+                for (var i = 0, j = 0; i < args.musics.length; i++) {
+                    if (ytdl.validateURL(args.musics[i].url)) {
+
+                        const url = args.musics[i].url;
+
+                        movies.push({});
+                        promise.push(
+                            ytdl.getInfo(ytdl.getURLVideoID(args.musics[i].url)).then((info) => {
+                                const title = info.videoDetails.title;
+                                movies[j] = {url: url, title: title};
+                                j++;
+                                log.log(i.toString() + ": " + title);
+                            }));
+                    }
+                }
+
+                Promise.all(promise).then(() => {
+
+                    loadList(false);
+                    finalyFunc();
+
+                });
+
+                if (promise.length == 0) {
+                    finalyFunc();
+                }
+
+            }
+            function SendValue() {
+                return {
+                    mode: 'musics',
+                    musics: movies
+                }
+            }
+
+            function addMusic() {
+                const url = document.querySelector('.music-url').value;
+
+                log.log("addMusic()");
+                ytdl.getInfo(ytdl.getURLVideoID(url)).then((info) => {
+                    const title = info.videoDetails.title;
+                    movies.push({ url: url, title: title });
+                    loadList(false);
+                })
+            }
+
+            function loadList(isHide) {
+                if (isHide) { renderer.StartLoad(); }
+
+                const list = document.querySelector('.music-list');
+                list.innerHTML = "";
+                for (var i = 0; i < movies.length; ++i) {
+                    log.log(movies[i].title);
+                    var title;
+
+                    if (movies[i].title.length >= 20) {
+                        title = movies[i].title.substr(0, 19) + "…";
+                    } else {
+                        title = movies[i].title;
+                    }
+
+                    list.innerHTML += "<li id='music-link-" + i + "' class='music-item'><span class='music-title'>" + 
+                        title + "</span><button class='delete' onclick='deleteItem(" + i + ");'>消去</button>";
+                }
+
+                if (isHide) { renderer.EndLoad(); }
+            }
+
+            function deleteItem(index) {
+                movies = movies.filter((n, i) => i !== index);
+                log.log(index);
+                log.log(movies);
+                loadList(false);
+            }
+
+            window.onload = function() {
+                renderer.Initializer(RecieveValue, SendValue);
+            };
+
+            document.querySelector('.music-url').addEventListener('keyup', () => {
+                log.log("input called");
+                if (ytdl.validateURL(document.querySelector('.music-url').value)) {
+                    document.querySelector('.music-add').onclick = addMusic;
+                    document.querySelector('.music-add').classList.remove('disable');
+                    
+                } else {
+                    document.querySelector('.music-add').onclick = () => {};
+                    document.querySelector('.music-add').classList.add('disable');
+                }
+            });
+
+        </script>
+    </body>
+</html>

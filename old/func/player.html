@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta name="viewport" content="width: device-width">
+    </head>
+    <body>
+        <audio></audio>
+        <script>
+            const {ipcRenderer} = require('electron');
+            const log = require('electron-log');
+            var audio = new Audio();
+            var isPlay = false;
+            
+            ipcRenderer.on("music-load", function(event, args) {
+                audio.src = args['url'];
+                isPlay = false;
+                audio.load();
+            });
+            
+            ipcRenderer.on("music-play", function(event) {
+                isPlay = true;
+                audio.play();
+            });
+
+            ipcRenderer.on("music-pause", function(event) {
+                isPlay = false;
+                audio.pause();
+            });
+
+            audio.addEventListener('canplay', () => {
+                if (isPlay) {
+                    audio.play();
+                }
+            });
+
+            audio.addEventListener('ended', () => {
+                audio.pause();
+                ipcRenderer.send('music-ended', { url: audio.src });
+            })
+
+            ipcRenderer.send('music-init');
+        </script>
+    </body>
+</html>

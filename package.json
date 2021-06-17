@@ -1,0 +1,39 @@
+{
+  "name": "desires-of-sheep",
+  "version": "1.0.0",
+  "description": "For Sleep",
+  "main": "main.js",
+  "scripts": {
+    "hot-reload": "npm-run-all --parallel electron sass",
+    "electron": "electron . --trace-warning",
+    "sass": "node-sass --watch src/front/share.scss src/front/share.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StreamWest-1629/desires-of-sheep.git"
+  },
+  "author": "Kasai Koji",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StreamWest-1629/desires-of-sheep/issues"
+  },
+  "homepage": "https://github.com/StreamWest-1629/desires-of-sheep#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@mapbox/timespace": "^2.0.4",
+    "auto-launch": "^5.0.5",
+    "electron": "^13.1.2",
+    "electron-log": "^4.3.5",
+    "electron-reload": "^1.5.0",
+    "electron-store": "^8.0.0",
+    "moment": "^2.29.1",
+    "node-cron": "^3.0.0",
+    "node-sass": "^6.0.0",
+    "npm-run-all": "^4.1.5",
+    "ntp-client": "^0.5.3",
+    "promise": "^8.1.0",
+    "request": "^2.88.2",
+    "timespan": "^2.3.0",
+    "ytdl-core": "^4.8.2"
+  }
+}

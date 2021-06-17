@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Setting</title>
+        <link rel="stylesheet" href="css/share.css">
+    </head>
+    <body>
+        <div id="bg-inner">
+            <div class="title"><h1 class="win-title">Settings</h1></div>
+            <div class="props">
+                <ul class="props-inner">
+                    <li class="prop has-time">
+                        <span class="prop-title">就寝時間</span>
+                        <label for="sleep-time">PM 10:00</label>
+                        <input id="sleep-time" type="time" name="sleep-time" value="20:00">
+                    </li>
+                    <li class="prop has-time">
+                        <span class="prop-title">睡眠時間</span>
+                        <label for="sleep-span">8時間</label>
+                        <input id="sleep-span" type="time" name="sleep-span" min="06:00" value="08:00">
+                    </li>
+                    <li class="prop has-btn">
+                        <span class="prop-title">就寝前に再生する音楽の設定</span>
+                        <label for="prop-musics">8項目</label>
+                        <button id="prop-musics" name="prop-musics" onclick="GotoMusics()">設定...</button>
+                    </li>
+                    <li class="prop has-btn">
+                        <span class="prop-title">バージョン情報</span>
+                        <label for="prop-version">1.0.0</label>
+                        <button id="prop-version" name="prop-version" onclick="GotoAbout()">バージョン</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="buttons">
+                <button id="option-save">SAVE</button>
+                <button id="option-close">CLOSE</button>
+            </div>
+        </div>
+        <div id="loading">
+            <div class="loading">Loading...</div>
+        </div>
+        <script type="text/javascript">
+
+            var renderer = require('./setting-renderer');
+
+            const { TimeSpan } = require('timespan');
+            const { ipcRenderer } = require('electron');
+
+            function GotoMusics() {
+                ipcRenderer.send('gotoMusics');
+            }
+
+            function GotoAbout() {
+                ipcRenderer.send('gotoAbout');
+            }
+
+            function RecieveValue(event, args, finishFunc) {
+                var time = new TimeSpan(args['sleep-time']);
+                var span = new TimeSpan(args['sleep-span']);
+                const timestr = ('00' + time.hours).slice(-2) + ":" + ('00' + time.minutes).slice(-2);
+                const spanstr = span.totalHours().toString().slice(0, 5) + "時間";
+                const musicstr = args.musics.length.toString() + "項目";
+                document.querySelector('label[for="sleep-time"]').textContent = timestr;
+                document.querySelector('label[for="sleep-span"]').textContent = spanstr;
+                document.querySelector('label[for="prop-musics"]').textContent = musicstr;
+
+                document.querySelector('#sleep-time').value = timestr;
+                document.querySelector('#sleep-span').value = ('00' + span.hours).slice(-2) + ":" + ('00' + span.minutes).slice(-2);
+
+                CheckSavable();
+
+                finishFunc();
+            }
+            function SendValue() {
+
+                const sleepTime = (document.querySelector('#sleep-time').value).split(':');
+                const sleepSpan = (document.querySelector('#sleep-span').value).split(':');
+
+                return {
+                    mode: 'standard',
+                    sleep: {
+                        time: new TimeSpan(0, 0, parseInt(sleepTime[1]), parseInt(sleepTime[0])),
+                        span: new TimeSpan(0, 0, parseInt(sleepSpan[1]), parseInt(sleepSpan[0]))
+                    }
+                }
+            }
+            window.onload = function() {
+                renderer.Initializer(RecieveValue, SendValue);
+            };
+            document.querySelector('#sleep-span').addEventListener('change', () => {CheckSavable()});
+
+            function CheckSavable() {
+                const sleepSpan = (document.querySelector('#sleep-span').value).split(':');
+                const { log } = require('electron-log');
+
+                var span = new TimeSpan(0, 0, parseInt(sleepSpan[1]), parseInt(sleepSpan[0]));
+                log(span.hours);
+                var isErr = false;
+                if (span.hours < 7) {
+                    isErr = true;
+
+                }
+                renderer.ChangeSaveStable(!isErr);
+            }
+
+        </script>
+    </body>
+</html>
