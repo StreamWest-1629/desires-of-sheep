@@ -9,13 +9,15 @@ const Def_sleep_span    = Hour * 8;
 const Def_dif_local     = 0;
 const Def_musics        = [];
 
+var storeData = {
+    timeMs:     store.get('sleep.timeMs', Def_sleep_time),
+    spanMs:     store.get('sleep.spanMs', Def_sleep_span),
+    dif_local:  store.get('time.dif', Def_dif_local),
+    musics:     store.get('musics', Def_musics),
+};
+
 function GetOptions() {
-    return {
-        timeMs:     store.get('sleep.timeMs', Def_sleep_time),
-        spanMs:     store.get('sleep.spanMs', Def_sleep_span),
-        dif_local:  store.get('time.dif', Def_dif_local),
-        musics:     store.get('musics', Def_musics),
-    };
+    return storeData;
 }
 
 function SetSleepOptions(value = {
@@ -25,6 +27,8 @@ function SetSleepOptions(value = {
     store.set({
         sleep: value
     });
+    storeData.timeMs = store.get('sleep.timeMs', Def_sleep_time);
+    storeData.spanMs = store.get('sleep.spanMs', Def_sleep_span);
 }
 
 function SetTimeOptions(value = { 
@@ -33,12 +37,14 @@ function SetTimeOptions(value = {
     store.set({
         time: value
     });
+    storeData.dif_local = store.get('time.dif', Def_dif_local);
 }
 
 function SetMusicsOptions(value = Def_musics) {
     store.set({
         musics: value
     });
+    storeData.musics = store.get('musics', Def_musics);
 }
 
 exports.GetOptions = GetOptions;
