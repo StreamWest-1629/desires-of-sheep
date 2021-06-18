@@ -12,6 +12,13 @@ exports.Initialize = Initialize;
 exports.GotoMusics = GotoMusics;
 exports.GotoAbout = GotoAbout;
 
+document.querySelector('#bg').style['opacity'] = 0;
+document.querySelectorAll('button, input').forEach((e) => {
+    e.style['transition'] = '0s';
+    e.style['z-index'] = -1;
+})
+/// document.querySelector('#bg').style['display'] = 'none';
+
 const closeBtn = document.querySelector('#option-close');
 const saveBtn = document.querySelector('#option-save');
 const backBtn = document.querySelector('#option-back');
@@ -46,17 +53,29 @@ function Initialize(updateFunc = updateFuncDefault, sendFunc = sendFuncDefault) 
     UpdateFunc = updateFunc;
     SendFunc = sendFunc;
 
-    GetData();
+    GetData().then(() => {
+        if (closeBtn != null) { closeBtn.onclick = onclose; }
+        if (saveBtn != null) { saveBtn.onclick = onsave; }
+        if (backBtn != null) { backBtn.onclick = onback; }
+        document.querySelectorAll('button, input').forEach((e) => {
+            e.style['z-index'] = 100;
+        })
+        document.querySelectorAll('button').forEach((e) => {
+            e.style['transition'] = '.3s';
+        })
+        // document.querySelector('#bg').style['display'] = 'block';
+        
+        document.querySelector('#bg').style['opacity'] = 1;
+    })
 
-    if (closeBtn != null) { closeBtn.onclick = onclose; }
-    if (saveBtn != null) { saveBtn.onclick = onsave; }
-    if (backBtn != null) { backBtn.onclick = onback; }
 }
 
 function GetData() {
-    ipcRenderer.invoke('getData').then((args) => {
-        UpdateFunc(args);
-    });
+    return new Promise((resolve, reject) => {
+        ipcRenderer.invoke('getData').then((args) => {
+            UpdateFunc(args).then(resolve, reject)
+        });
+    })
 }
 
 function SetSleep(args) {

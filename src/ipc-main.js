@@ -48,7 +48,17 @@ ipcMain.on('music-titles', (event, args) => {
     }
 
     Promise.all(promise).then(() => {
-        result.sort();
+        result.sort((a, b) => {
+            if (a.title > b.title) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
         constants.GetWin().webContents.send('music-titles', result);
     })
 })
+
+ipcMain.handle('music-isvalid', (event, url) => {
+    return youtube.validateURL(url);
+});

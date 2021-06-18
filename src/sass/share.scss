@@ -31,14 +31,15 @@ body {
         }
     }
 
+    .disable {
+        background: var(--shadow);
+    }
+
     input[type="time"] {
         width: 80px;
         padding-left: 20px;
     }
 
-    #loading {
-        display: none;
-    }
     #bg {
         position: absolute;
         left: 0;
@@ -46,6 +47,7 @@ body {
         top: 0;
         bottom: 0;
         background-color: var(--dark);
+        transition: .5s;
 
         #bg-inner {
             position: absolute;

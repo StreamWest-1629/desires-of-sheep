@@ -35,6 +35,8 @@
             var movies = [];
             const renderer = require('./js/settings-renderer');
             const { ipcRenderer } = require('electron');
+            const urlinput = document.querySelector('.music-url');
+            const addbutton = document.querySelector('.music-add');
             window.onload = () => {
                 renderer.Initialize(UpdateFunc, SendFunc);
             }
@@ -93,8 +95,22 @@
                     movies.push(result[0]);
                     loadList();
                 })
-                ipcRenderer.send('music-titles', [{url: document.querySelector('.music-url').value}]);
+                ipcRenderer.send('music-titles', [{url: urlinput.value}]);
             }
+
+            urlinput.addEventListener('input', () => {
+
+                ipcRenderer.invoke('music-isvalid', urlinput.value).then((isvalid) => {
+                    if (isvalid == true) {
+                        addbutton.onclick = addMusic;
+                        addbutton.classList.remove('disable');
+                    } else {
+                        addbutton.onclick = () => {};
+                        addbutton.classList.add('disable');
+                    }
+                })
+            })
+
         </script>
     </body>
 </html>
