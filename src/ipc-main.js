@@ -49,7 +49,6 @@ ipcMain.on('music-titles', (event, args) => {
 
     Promise.all(promise).then(() => {
         result.sort();
-        log(result);
         constants.GetWin().webContents.send('music-titles', result);
     })
 })

@@ -1,10 +1,13 @@
 'use strict';
 
-const { app, Tray, BrowserWindow, session } = require('electron');
+const { app, Tray, BrowserWindow, session, shell } = require('electron');
 const constants = require('./constants');
 const ipc = require('./ipc-main');
 const tooltipStr = '希望の睡眠 - 設定を開く';
 
+require('electron-reload')(__dirname, {
+    electron: require(`${__dirname}/../node_modules/electron`)
+});
 
 let tray = null;
 
@@ -32,7 +35,7 @@ function OpenWindow() {
         modal: false,
         minimizable: false,
         maximizable: false,
-        frame: false,
+        frame: true,
         icon: constants.iconPath
     }));
 
@@ -50,6 +53,6 @@ function OpenWindow() {
     })
 
     win.on('closed', function() {
-        settingsWindow = null;
+        constants.WinClose();
     });
 }
