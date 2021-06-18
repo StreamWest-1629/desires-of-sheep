@@ -1,9 +1,12 @@
 'use strict';
 
 const { app, Tray, BrowserWindow, session, shell } = require('electron');
+// const { exec } = require('child_process');
 const constants = require('./constants');
 const ipc = require('./ipc-main');
 const tooltipStr = '希望の睡眠 - 設定を開く';
+
+let isShutdown = false;
 
 require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/../node_modules/electron`)
@@ -16,9 +19,33 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
+    const doubleBoot = app.requestSingleInstanceLock();
+    if (!doubleBoot) {
+        app.quit();
+    }
+    // if (!app.commandLine.hasSwitch('force-keep')) {
+    //     const doubleBoot = app.requestSingleInstanceLock();
+    //     dialog.showMessageBox({message: '強制起動ではありません'});
+    //     if (!doubleBoot) {
+    //         app.quit();
+    //     }
+    // } else {
+    //     dialog.showMessageBox({message: '強制起動しました'});
+    // }
+
     tray = new Tray(constants.iconPath);
     tray.on('double-click', () => { OpenWindow(); });
 });
+
+// app.on('before-quit', (event) => {
+//     if (!isShutdown) {
+//         const cmd = `${app.getPath('exe')} -force-keep`;
+//         dialog.showMessageBox({message: cmd});
+//         event.preventDefault();
+//         // exec(cmd);
+//         isShutdown = true;
+//     }
+// });
 
 function OpenWindow() {
     const win = constants.WinCreate(new BrowserWindow({
@@ -35,7 +62,7 @@ function OpenWindow() {
         modal: false,
         minimizable: false,
         maximizable: false,
-        frame: true,
+        frame: false,
         icon: constants.iconPath
     }));
 
