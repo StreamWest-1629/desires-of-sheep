@@ -9,3 +9,12 @@ const htmlPath = {
 
 exports.iconPath = iconPath;
 exports.htmlPath = htmlPath;
+
+var win = null;
+function WinClose() { win = null };
+function WinCreate(bw) { win = bw; return win; };
+function GetWin() { return win };
+
+exports.WinClose = WinClose;
+exports.WinCreate = WinCreate;
+exports.GetWin = GetWin;

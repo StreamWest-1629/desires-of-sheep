@@ -1,25 +1,24 @@
 'use strict';
 
 const { app, Tray, BrowserWindow, session } = require('electron');
-const { iconPath, htmlPath } = require('./constants');
+const constants = require('./constants');
 
 const tooltipStr = '希望の睡眠 - 設定を開く';
 
 
 let tray = null;
-let win = null;
 
 app.on('window-all-closed', () => {
     session.defaultSession.clearCache(() => {});
 });
 
 app.on('ready', () => {
-    tray = new Tray(iconPath);
+    tray = new Tray(constants.iconPath);
     tray.on('double-click', () => { OpenWindow(); });
 });
 
 function OpenWindow() {
-    win = new BrowserWindow({
+    const win = constants.WinCreate(new BrowserWindow({
         width: 600,
         height: 430,
         autoHideMenuBar: true,
@@ -34,10 +33,10 @@ function OpenWindow() {
         minimizable: false,
         maximizable: false,
         frame: false,
-        icon: iconPath
-    });
+        icon: constants.iconPath
+    }));
 
-    win.loadFile(htmlPath.settings);
+    win.loadFile(constants.htmlPath.settings);
     win.webContents.on('will-navigate', (event, url) => {
         event.preventDefault();
         shell.openExternal(url);
