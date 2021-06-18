@@ -1,0 +1,39 @@
+{
+  "name": "desires-of-sheep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StreamWest-1629/desires-of-sheep.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StreamWest-1629/desires-of-sheep/issues"
+  },
+  "homepage": "https://github.com/StreamWest-1629/desires-of-sheep#readme",
+  "devDependencies": {
+    "electron": "^13.1.2",
+    "electron-builder": "^22.11.7"
+  },
+  "build": {
+    "appId": "com.streamwest-1629.desires-of-sheep",
+    "directories": {
+      "output": "dist/${os}@${arch}"
+    },
+    "files": [
+      "img",
+      "src",
+      "package.json",
+      "package-lock.json"
+    ],
+    "win": {
+      "icon": "img/icon.jpg"
+    }
+  }
+}
