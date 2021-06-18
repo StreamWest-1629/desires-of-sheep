@@ -1,4 +1,55 @@
 'use strict';
 
+const youtube = require('./js/youtube-audio');
+const store = require('./js/store');
+const constants = require('./constants')
 const { ipcMain } = require('electron');
 
+ipcMain.on('gotoSettings', () => {
+    constants.GetWin().webContents.loadFile(constants.htmlPath.settings);
+})
+
+ipcMain.on('gotoMusics', () => {
+    constants.GetWin().webContents.loadFile(constants.htmlPath.musics);
+})
+
+ipcMain.on('gotoAbout', () => {
+    constants.GetWin().webContents.loadFile(constants.htmlPath.about);
+})
+
+ipcMain.handle('getData', () => {
+    const result = store.GetOptions();
+    return result;
+})
+
+ipcMain.handle('setSleep', (event, args) => {
+    store.SetSleepOptions(args);
+})
+
+ipcMain.handle('setMusics', (event, args) => {
+    store.SetMusicsOptions(args);
+})
+
+ipcMain.on('music-titles', (event, args) => {
+    var result = [];
+    var promise = [];
+
+    for (var i = 0; i < args.length; i++) {
+        const url = args[i].url;
+        
+        if (youtube.validateURL(url)) {
+            promise.push(new Promise((resolve, reject) => {
+                youtube.GetMusicInfo(url).then((info) => {
+                    result.push({title: info.title, url: url});
+                    resolve();
+                }, reject);
+            }));
+        }
+    }
+
+    Promise.all(promise).then(() => {
+        result.sort();
+        log(result);
+        constants.GetWin().webContents.send('music-titles', result);
+    })
+})

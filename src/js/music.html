@@ -4,6 +4,9 @@
     </head>
     <body>
         <script>
+            const { ipcRenderer } = require('electron');
+            const { log } = require('electron-log');
+
             const audio = new Audio();
             var isPlay = false;
 

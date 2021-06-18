@@ -20,7 +20,10 @@
   "homepage": "https://github.com/StreamWest-1629/desires-of-sheep#readme",
   "devDependencies": {
     "electron": "^13.1.2",
-    "electron-builder": "^22.11.7"
+    "electron-builder": "^22.11.7",
+    "electron-log": "^4.3.5",
+    "node-sass": "^6.0.0",
+    "npm-run-all": "^4.1.5"
   },
   "build": {
     "appId": "com.streamwest-1629.desires-of-sheep",
@@ -37,5 +40,17 @@
       "icon": "img/icon.jpg"
     },
     "buildDependenciesFromSource": true
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@mapbox/timespace": "^2.0.4",
+    "auto-launch": "^5.0.5",
+    "electron-store": "^8.0.0",
+    "moment": "^2.29.1",
+    "node-cron": "^3.0.0",
+    "ntp-client": "^0.5.3",
+    "request": "^2.88.2",
+    "timespan": "^2.3.0",
+    "ytdl-core": "^4.8.2"
   }
 }

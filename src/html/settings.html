@@ -3,7 +3,7 @@
     <head>
         <meta charset='utf-8'>
         <title>Setting</title>
-        <link rel="stylesheet" href="share.css">
+        <link rel="stylesheet" href="../css/share.css">
     </head>
     <body>
         <div id="loading">
@@ -46,6 +46,8 @@
             </div>
         </div>
         <script type="text/javascript">
+            const { TimeSpan } = require('timespan');
+            const { ipcRenderer } = require('electron');
             const renderer = require('./js/settings-renderer');
 
             const timeLabel = document.querySelector('label[for="sleep-time"]');

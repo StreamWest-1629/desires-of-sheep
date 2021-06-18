@@ -1,5 +1,7 @@
 'use strict';
 
+const { ipcRenderer } = require('electron');
+
 var UpdateFunc;
 var SendFunc;
 

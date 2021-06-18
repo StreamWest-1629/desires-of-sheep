@@ -2,7 +2,7 @@
 
 const { app, Tray, BrowserWindow, session } = require('electron');
 const constants = require('./constants');
-
+const ipc = require('./ipc-main');
 const tooltipStr = '希望の睡眠 - 設定を開く';
 
 
@@ -37,6 +37,8 @@ function OpenWindow() {
     }));
 
     win.loadFile(constants.htmlPath.settings);
+    win.webContents.openDevTools();
+    
     win.webContents.on('will-navigate', (event, url) => {
         event.preventDefault();
         shell.openExternal(url);
