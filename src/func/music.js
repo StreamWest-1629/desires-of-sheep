@@ -1,6 +1,5 @@
 'use strict';
 
-const electron = require('electron');
 const { log } = require('electron-log');
 const { app, BrowserWindow, ipcMain } = require('electron');
 

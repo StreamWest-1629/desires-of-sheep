@@ -1,6 +1,6 @@
 'use strict';
 
-const electron = require('electron');
+const { Tray, Menu } = require('electron');
 const { log } = require('electron-log');
 const { Open } = require('./settings-window');
 const run = require('../usecase/run');
@@ -14,9 +14,9 @@ function Run() {
     log("Task-Tray load START.");
     log(iconPath);
 
-    tray = new electron.Tray(iconPath);
+    tray = new Tray(iconPath);
     const toolTipStr = "希望の睡眠 - 設定を開く...";
-    const ctx = electron.Menu.buildFromTemplate([
+    const ctx = Menu.buildFromTemplate([
         {label: 'Settings...', click(menuItem) { Open(iconPath); }}
     ]);
 

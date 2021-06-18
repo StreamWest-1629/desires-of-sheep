@@ -1,6 +1,5 @@
 'use strict';
 
-const electron = require('electron');
 const { validateURL, getInfo, getURLVideoID, filterFormats } = require('ytdl-core');
 
 exports.validateURL = validateURL;
