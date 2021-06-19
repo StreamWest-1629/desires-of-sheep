@@ -38,8 +38,6 @@
 
 ## Features
 
-![Win](icons/windows.svg)]![Mac](icons/apple.svg)![Linux](icons/linux.svg)
-
 - PCをシャットダウンすることで作業できないような状態を生み出します。
   - 設定で指定した睡眠開始時間にPCをシャットダウンします。
   - 設定で指定した時間内にPCを起動した場合、自動的にアプリが起動することでPCをシャットダウンします。
@@ -49,6 +47,7 @@
     - （余談だが、今回使用したElectronには音を再生するための専用ツールはないため、HTML5を用いた疑似的なライブラリを作成した）
 - あらゆるエンジニアに対応するため、Windows/Mac/Linuxの主要な三大OSに対応。
 
+![Win](icons/windows.svg)    ![Mac](icons/apple.svg)    ![Linux](icons/linux.svg)
 
 ### Future Features
 > 以下の機能は想定に反して困難であった、または今回実装する必要がないと判断した機能のうち、希望があれば後続開発で実装する機能の一覧です。
