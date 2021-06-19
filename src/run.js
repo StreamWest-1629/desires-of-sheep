@@ -2,6 +2,8 @@
 
 const store = require('./js/store');
 const ntp = require('./js/ntp');
+const youtube = require('./js/youtube-audio');
+const music = require('./js/music');
 const cron = require('node-cron');
 const moment = require('moment');
 const { Moment } = require('moment');
@@ -62,9 +64,28 @@ function CheckTime(mom) {
         log("no shutdown")
         start.subtractHours(1);
         if (now.msecs > start.msecs) {
-            // todo: play musics    
+            // todo: play musics
         } else {
             // todo: stop musics
         }
     }
+}
+
+music.OnPop(() => {
+    return youtubeAudioSelect().then((url) => {
+        log([url]);
+        music.Append([url])
+    });
+});
+
+youtubeAudioSelect().then((url) => {
+    music.Append([url]);
+    music.PlayStart();
+});
+
+function youtubeAudioSelect() {
+    const musics = store.GetOptions().musics;
+    const index = Math.floor(Math.random() * (musics.length - 0.0001))
+    log(index);
+    return youtube.GetMusicUrl(musics[index].url);
 }

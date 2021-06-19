@@ -5,7 +5,7 @@ const { app, Tray, BrowserWindow, session, shell } = require('electron');
 const constants = require('./constants');
 const ipc = require('./ipc-main');
 const tooltipStr = '希望の睡眠 - 設定を開く';
-
+const run = require('./run');
 let isShutdown = false;
 
 require('electron-reload')(__dirname, {

@@ -24,6 +24,7 @@
                 audio.src = args.url;
                 isPlay = true;
                 audio.load();
+                audio.play();
             });
 
             audio.addEventListener('canplay', () => {
@@ -33,7 +34,7 @@
             });
 
             audio.addEventListener('ended', () => {
-                audio.pause();
+                log('music-ended');
                 ipcRenderer.send('music-end', { url: audio.src });
             });
 

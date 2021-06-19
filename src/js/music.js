@@ -6,10 +6,16 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 var playerWindow = null;
 var isPlaying = false;
 var playQueue = [];
+let onPop = new Promise((resolve) => {resolve();});
 
+exports.OnPop = OnPop;
 exports.PlayStart = PlayStart;
 exports.Append = Append;
 exports.Pause = Pause;
+
+function OnPop(func = new Promise((resolve) => {resolve();})) {
+    onPop = func;
+}
 
 function PlayStart(urls = []) {
     if (urls.length > 0) {
@@ -36,13 +42,17 @@ function Pause() {
 
 function pop() {
     playQueue.shift();
-    if (playerWindow != null) {
-        if (playQueue.length > 0) {
-            load();
-        } else {
-            playerWindow.close();
+    onPop()
+    .then(() => {
+        if (playerWindow != null) {
+            log(`playQueue[${playQueue.length}]`)
+            if (playQueue.length > 0) {
+                load();
+            } else {
+                playerWindow.close();
+            }
         }
-    }
+    });    
 }
 
 function load() {
@@ -76,13 +86,16 @@ function createWindow() {
                 }
             });
 
-            playerWindow.loadFile("src/func/music.html");
+            playerWindow.loadFile("src/js/music.html");
+            playerWindow.webContents.openDevTools();
+
             playerWindow.on('closed', () => {
                 playerWindow = null;
                 isPlaying = false;
             });
 
-            playerWindow.webContents.on('music-end', () => {
+            ipcMain.on('music-end', () => {
+                log('music end');
                 pop();
             });
 
