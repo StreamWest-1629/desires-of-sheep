@@ -35,7 +35,7 @@ function Append(urls = []) {
 
 function Pause() {
     isPlaying = false;
-    if (playWindow != null) {
+    if (playerWindow != null) {
         playerWindow.webContents.send('music-pause');
     }
 }
