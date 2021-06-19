@@ -58,15 +58,19 @@ function CheckTime(mom) {
         
         // todo: exec shutdown
         log("shutdown")
-        // const child = exec("shutdown -s -t 1 -f");
+        const child = exec("shutdown -s -t 1 -f");
 
     } else {
         log("no shutdown")
         start.subtractHours(1);
         if (now.msecs > start.msecs) {
             // todo: play musics
+            youtubeAudioSelect().then((url) => {
+                music.PlayStart([url]);
+            });
         } else {
             // todo: stop musics
+            music.Pause();
         }
     }
 }
@@ -76,11 +80,6 @@ music.OnPop(() => {
         log([url]);
         music.Append([url])
     });
-});
-
-youtubeAudioSelect().then((url) => {
-    music.Append([url]);
-    music.PlayStart();
 });
 
 function youtubeAudioSelect() {
