@@ -1,6 +1,7 @@
 'use strict';
 
 const { app, Tray, BrowserWindow, session, shell } = require('electron');
+const AutoLaunch = require('auto-launch');
 // const { exec } = require('child_process');
 const constants = require('./constants');
 const ipc = require('./ipc-main');
@@ -9,6 +10,20 @@ const run = require('./run');
 let isShutdown = false;
 
 let tray = null;
+
+var launcher = new AutoLaunch({
+    name: '希望の睡眠',
+    path: app.getPath('exe')
+});
+
+launcher.isEnabled()
+    .then((isEnabled) => {
+        if (isEnabled) {
+            return;
+        }
+        launcher.enable;
+    })
+    .catch((err) => {});
 
 app.on('window-all-closed', () => {
     session.defaultSession.clearCache(() => {});
