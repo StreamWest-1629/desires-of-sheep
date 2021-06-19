@@ -5,10 +5,12 @@ const { ipcRenderer } = require('electron');
 var UpdateFunc;
 var SendFunc;
 
+exports.Dialog = Dialog;
 exports.SetSleep = SetSleep;
 exports.SetMusic = SetMusic;
 exports.SetSaveStable = SetSaveStable;
 exports.Initialize = Initialize;
+exports.onback = onback;
 exports.GotoMusics = GotoMusics;
 exports.GotoAbout = GotoAbout;
 
@@ -48,12 +50,15 @@ function sendFuncDefault() {
     })
 }
 
-function Initialize(updateFunc = updateFuncDefault, sendFunc = sendFuncDefault) {
+function Initialize(updateFunc = updateFuncDefault, sendFunc = sendFuncDefault, initializedChecker = () => { return true; }) {
 
     UpdateFunc = updateFunc;
     SendFunc = sendFunc;
 
     GetData().then(() => {
+
+        while (!initializedChecker());
+
         if (closeBtn != null) { closeBtn.onclick = onclose; }
         if (saveBtn != null) { saveBtn.onclick = onsave; }
         if (backBtn != null) { backBtn.onclick = onback; }
@@ -66,8 +71,16 @@ function Initialize(updateFunc = updateFuncDefault, sendFunc = sendFuncDefault) 
         // document.querySelector('#bg').style['display'] = 'block';
         
         document.querySelector('#bg').style['opacity'] = 1;
+    
     })
 
+}
+
+function Dialog(message, button1str, button2str) {
+    const dialog = document.querySelector('#dialog');
+    return new Promise((resolve, reject) => {
+        dialog.style.display = 'block';
+    })
 }
 
 function GetData() {

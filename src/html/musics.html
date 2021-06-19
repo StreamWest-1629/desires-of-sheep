@@ -31,25 +31,47 @@
                 </div>
             </div>
         </div>
+        <div id="dialog">
+            エラーが発生しました。
+        </div>
         <script>
             var movies = [];
             const renderer = require('./js/settings-renderer');
-            const { ipcRenderer } = require('electron');
+            const { ipcRenderer, dialog } = require('electron');
+            const { log } = require('electron-log');
             const urlinput = document.querySelector('.music-url');
             const addbutton = document.querySelector('.music-add');
+            var firstinit = false;
             window.onload = () => {
                 renderer.Initialize(UpdateFunc, SendFunc);
             }
 
             function UpdateFunc(args) {
-                return new Promise((resolve, reject) => {
-                    ipcRenderer.once('music-titles', (event, result) => {
-                        movies = result;
-                        loadList();
-                        resolve();
-                    })
-                    ipcRenderer.send('music-titles', args.musics);
-                })
+                return new Promise((resolve) => {
+                    
+                    ipcRenderer.invoke('music-titles', args.musics)
+                    .then((result) => {
+                        if (result != null) {
+                            log(result);
+                            movies = result;
+                            loadList();
+                            resolve();
+                        } else {
+                        }
+                    }, ErrDialog);
+
+                    function ErrDialog() {
+                        return new Promise(() => {
+                            renderer.Dialog("データの取得中にエラーが発生しました", "RETRY", "BACK").then((returnStr) => {
+                                if (returnStr = "RETRY") {
+                                    addMusic();
+                                } else if (!firstinit) {
+                                    renderer.onback();              
+                                }
+                            });
+                        })
+                    }
+                });
             }
 
             function SendFunc() {
@@ -91,11 +113,24 @@
             }
 
             function addMusic() {
-                ipcRenderer.once('music-titles', (event, result) => {
-                    movies.push(result[0]);
-                    loadList();
-                })
-                ipcRenderer.send('music-titles', [{url: urlinput.value}]);
+                ipcRenderer.invoke('music-titles', args.musics)
+                    .then((result) => {
+                        result.forEach(element => {
+                            movies.push(element);
+                        });
+                        loadList();
+                    }, (reason) => {
+                        renderer.Dialog("データの取得中にエラーが発生しました", "RETRY", "BACK").then((returnStr) => {
+                            if (returnStr = "RETRY") {
+                                addMusic();
+                            } else if (!firstinit) {
+                                renderer.onback();              
+                            }
+                        }); 
+                    })
+                    .finally(() => {
+                        firstinit = true;
+                    });
             }
 
             urlinput.addEventListener('input', () => {

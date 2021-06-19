@@ -4,7 +4,9 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "hotreload": "npm-run-all --parallel test sass",
+    "sass": "node-sass --watch --output-style compressed src/sass/share.scss src/css/share.css",
+    "test": "electron .",
     "build": "electron-builder"
   },
   "repository": {
@@ -22,6 +24,7 @@
     "electron": "^13.1.2",
     "electron-builder": "^22.11.7",
     "electron-log": "^4.3.5",
+    "electron-reload": "^1.5.0",
     "node-sass": "^6.0.0",
     "npm-run-all": "^4.1.5"
   },
@@ -36,6 +39,7 @@
       "package.json",
       "package-lock.json"
     ],
+    "icon": "img/icon.jpg",
     "win": {
       "icon": "img/icon.jpg"
     },
