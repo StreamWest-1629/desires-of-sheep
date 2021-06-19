@@ -24,6 +24,8 @@ document.querySelectorAll('button, input').forEach((e) => {
 const closeBtn = document.querySelector('#option-close');
 const saveBtn = document.querySelector('#option-save');
 const backBtn = document.querySelector('#option-back');
+const dialogOver = document.querySelector('#dialog-over');
+const dialog = document.querySelector('#dialog');
 
 function updateFuncDefault(saveData) {
     return new Promise((resolve, reject) => {
@@ -63,7 +65,7 @@ function Initialize(updateFunc = updateFuncDefault, sendFunc = sendFuncDefault, 
         if (saveBtn != null) { saveBtn.onclick = onsave; }
         if (backBtn != null) { backBtn.onclick = onback; }
         document.querySelectorAll('button, input').forEach((e) => {
-            e.style['z-index'] = 100;
+            e.style['z-index'] = 10;
         })
         document.querySelectorAll('button').forEach((e) => {
             e.style['transition'] = '.3s';
@@ -71,23 +73,47 @@ function Initialize(updateFunc = updateFuncDefault, sendFunc = sendFuncDefault, 
         // document.querySelector('#bg').style['display'] = 'block';
         
         document.querySelector('#bg').style['opacity'] = 1;
-    
-    })
+        
+    });
 
 }
 
 function Dialog(message, button1str, button2str) {
-    const dialog = document.querySelector('#dialog');
     return new Promise((resolve, reject) => {
-        dialog.style.display = 'block';
+        dialogOver.style['opacity'] = 1;
+        dialogOver.style['z-index'] = 120;
+
+        dialog.innerHTML = 
+        `<div class="dialog-msg">${message}</div>
+         <div class="dialog-btn">
+            <button id="dlg-button1">${button1str}</button>
+            <button id="dlg-button2">${button2str}</button>
+         </div>`
+
+         const btn1 = document.querySelector("#dlg-button1");
+         const btn2 = document.querySelector('#dlg-button2');
+
+         btn1.onclick = () => {
+            resolve(button1str);
+            DialogClose();
+         }
+         btn2.onclick = () => {
+            resolve(button2str);
+            DialogClose();
+         }
     })
+}
+
+function DialogClose() {
+    dialogOver.style['opacity'] = 0;
+    dialogOver.style['z-index'] = -1;
 }
 
 function GetData() {
     return new Promise((resolve, reject) => {
         ipcRenderer.invoke('getData').then((args) => {
             UpdateFunc(args).then(resolve, reject)
-        });
+        }, (reason) => Promise.reject(reason));
     })
 }
 

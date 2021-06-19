@@ -31,46 +31,52 @@
                 </div>
             </div>
         </div>
-        <div id="dialog">
-            エラーが発生しました。
+        <div id="dialog-over">
+            <div id="dialog">
+            </div>
         </div>
         <script>
             var movies = [];
             const renderer = require('./js/settings-renderer');
-            const { ipcRenderer, dialog } = require('electron');
+            const { ipcRenderer } = require('electron');
             const { log } = require('electron-log');
             const urlinput = document.querySelector('.music-url');
             const addbutton = document.querySelector('.music-add');
             var firstinit = false;
             window.onload = () => {
+                firstinit = false;
                 renderer.Initialize(UpdateFunc, SendFunc);
             }
+            
 
             function UpdateFunc(args) {
-                return new Promise((resolve) => {
+                return new Promise((resolve, reject) => {
                     
+                    var retried = false;
+
                     ipcRenderer.invoke('music-titles', args.musics)
                     .then((result) => {
                         if (result != null) {
-                            log(result);
                             movies = result;
                             loadList();
-                            resolve();
                         } else {
                         }
-                    }, ErrDialog);
-
-                    function ErrDialog() {
-                        return new Promise(() => {
-                            renderer.Dialog("データの取得中にエラーが発生しました", "RETRY", "BACK").then((returnStr) => {
-                                if (returnStr = "RETRY") {
-                                    addMusic();
-                                } else if (!firstinit) {
-                                    renderer.onback();              
-                                }
-                            });
+                    }, () => new Promise(() => {
+                        renderer.Dialog("データの取得中にエラーが発生しました。通信環境をご確認ください。", "RETRY", "BACK").then((returnStr) => {
+                            if (returnStr == "RETRY") {
+                                retried = true;
+                                UpdateFunc(args).then(resolve, reject);
+                            } else if(firstinit == false) {
+                                renderer.onback();
+                            }
                         })
-                    }
+                    }))
+                    .finally(() => {
+                        firstinit = true;
+                        if (!retried) {
+                            resolve();
+                        }
+                    })
                 });
             }
 

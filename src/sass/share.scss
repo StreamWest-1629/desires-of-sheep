@@ -40,6 +40,27 @@ body {
         padding-left: 20px;
     }
 
+    #loading {
+        background: var(--shadow);
+        color: var(--midium);
+        display: block;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+
+        div {
+            position: absolute;
+            top: 70%;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            text-align: center;
+            size: 2em;
+        }
+    }
+
     #bg {
         position: absolute;
         left: 0;
@@ -252,7 +273,48 @@ body {
         }
     }
 
-    #dialog {
-        display: none;
+    #dialog-over {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: #000000a0;
+        transition: 0.5s;
+        opacity: 0;
+        z-index: -1;
+        #dialog {
+            position: relative;
+            height: 150px;
+            width: 400px;
+            background: var(--dark);
+            color: var(--light);
+            margin:auto auto;
+            margin-top: 15%;
+            border-radius: 15px;        
+            box-shadow: 0px 10px 5px -3px var(--shadow);
+            
+            .dialog-msg {
+                position: absolute;
+                width: calc(100% - 40px);
+                padding: 20px;
+                text-align: center;
+                font-weight: bold;  
+            }
+
+            .dialog-btn {
+                position:absolute;
+                bottom: 10px;
+                right: 10px;
+                align-items: center;
+                margin-left: auto;
+                margin-right: auto;
+                button {
+                    background: var(--midium);
+                    color: var(--dark);
+                    font-weight: bold;
+                }
+            }
+        }
     }
 }

@@ -14,10 +14,7 @@ var countNtp = MaxCountNtp;
 var storeData = store.GetOptions();
 var beforeTime = moment();
 
-log(storeData);
-
 cron.schedule('*/5 * * * * *', () => {
-    log(`launch(countNtp = ${countNtp})`);
     SetTime();
 });
 
@@ -37,11 +34,9 @@ function SetTime() {
         const resultNow = moment();
         countNtp = 0;
         storeData.dif_local = result.valueOf() - resultNow;
-        log(`unix: ${result.valueOf()}, now: ${resultNow}`);
         CheckTime(result.subtract(storeData.dif_local, 'ms'));
         store.SetTimeOptions({ dif: storeData.dif_local });
     }, (reason) => {
-        log(reason);
         countNtp = MaxCountNtp;
         CheckTime(now.add(storeData.dif_local, 'ms'));
     });

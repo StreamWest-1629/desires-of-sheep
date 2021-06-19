@@ -52,7 +52,6 @@ ipcMain.handle('music-titles', (event, args) => {
     return new Promise((resolve, reject) => {
         Promise.all(promise)
         .then(() => {
-            log(result);
             result.sort((a, b) => {
                 if (a.title > b.title) {
                     return 1;
@@ -60,8 +59,10 @@ ipcMain.handle('music-titles', (event, args) => {
                     return -1;
                 }
             });
+        }, () => { result = null; })
+        .finally(() => {
             resolve(result);
-        }, reject)
+        })
     })
     
 

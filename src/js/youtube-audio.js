@@ -33,7 +33,7 @@ function GetYoutube(url, i = 0) {
                 if (i < numTry - 1) {
                     return GetYoutube(url, i + 1);
                 } else {
-                    return reject(`Failed Reason of Final trying: ${reason}`).then();
+                    return reject(`Failed Reason of Final trying: ${reason}`);
                 }
             })
     })

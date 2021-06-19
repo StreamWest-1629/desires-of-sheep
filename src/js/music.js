@@ -57,7 +57,6 @@ function load() {
     }
 
     function inload() {
-        log(playQueue);
         playerWindow.webContents.send('music-load-and-play', { url: playQueue[0] });
     }
 }

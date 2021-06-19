@@ -6,7 +6,7 @@
   "scripts": {
     "hotreload": "npm-run-all --parallel test sass",
     "sass": "node-sass --watch --output-style compressed src/sass/share.scss src/css/share.css",
-    "test": "electron .",
+    "test": "electron . --trace-warnings",
     "build": "electron-builder"
   },
   "repository": {
