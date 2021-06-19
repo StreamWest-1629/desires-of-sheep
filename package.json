@@ -41,7 +41,8 @@
     ],
     "icon": "img/icon.jpg",
     "win": {
-      "icon": "img/icon.jpg"
+      "icon": "img/icon.jpg",
+      "target": ["nsis", "zip"]
     },
     "buildDependenciesFromSource": true
   },
