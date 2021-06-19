@@ -34,6 +34,7 @@ app.on('ready', () => {
     // }
 
     tray = new Tray(constants.iconPath);
+    tray.setToolTip(tooltipStr);
     tray.on('double-click', () => { OpenWindow(); });
 });
 
@@ -62,7 +63,7 @@ function OpenWindow() {
         modal: false,
         minimizable: false,
         maximizable: false,
-        frame: true,
+        frame: false,
         icon: constants.iconPath
     }));
 

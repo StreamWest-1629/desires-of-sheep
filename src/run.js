@@ -9,7 +9,6 @@ const moment = require('moment');
 const { Moment } = require('moment');
 const { TimeSpan } = require('timespan');
 const { exec } = require('child_process');
-const { log } = require('electron-log');
 
 const MaxCountNtp = 720;
 var countNtp = MaxCountNtp;
@@ -50,18 +49,15 @@ function CheckTime(mom) {
     const now = new TimeSpan(mom.millisecond(), mom.second(), mom.minute(), mom.hour())
     end.msecs += start.msecs;
 
-    log(`${start} to ${end} @ ${now}`);
     if (now.msecs < start.msecs) {
         end.subtractDays(1);
     }
     if (now.msecs < end.msecs) {
         
         // todo: exec shutdown
-        log("shutdown")
         const child = exec("shutdown -s -t 1 -f");
 
     } else {
-        log("no shutdown")
         start.subtractHours(1);
         if (now.msecs > start.msecs) {
             // todo: play musics
@@ -77,7 +73,6 @@ function CheckTime(mom) {
 
 music.OnPop(() => {
     return youtubeAudioSelect().then((url) => {
-        log([url]);
         music.Append([url])
     });
 });
@@ -85,6 +80,5 @@ music.OnPop(() => {
 function youtubeAudioSelect() {
     const musics = store.GetOptions().musics;
     const index = Math.floor(Math.random() * (musics.length - 0.0001))
-    log(index);
     return youtube.GetMusicUrl(musics[index].url);
 }

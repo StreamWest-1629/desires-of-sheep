@@ -1,6 +1,5 @@
 'use strict';
 
-const { log } = require('electron-log');
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 var playerWindow = null;
@@ -45,7 +44,6 @@ function pop() {
     onPop()
     .then(() => {
         if (playerWindow != null) {
-            log(`playQueue[${playQueue.length}]`)
             if (playQueue.length > 0) {
                 load();
             } else {
@@ -95,7 +93,6 @@ function createWindow() {
             });
 
             ipcMain.on('music-end', () => {
-                log('music end');
                 pop();
             });
 

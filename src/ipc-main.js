@@ -1,6 +1,5 @@
 'use strict';
 
-const { log } = require('electron-log');
 const youtube = require('./js/youtube-audio');
 const store = require('./js/store');
 const constants = require('./constants')
