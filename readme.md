@@ -1,6 +1,6 @@
 <!-- omit in toc -->
 # 希望の睡眠 - Desires of Sheep
-
+![icon](img/icon.jpg)
 <!-- omit in toc -->
 ## Contents
 - [Abstract/Target](#abstracttarget)
