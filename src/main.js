@@ -8,10 +8,6 @@ const tooltipStr = '希望の睡眠 - 設定を開く';
 const run = require('./run');
 let isShutdown = false;
 
-require('electron-reload')(__dirname, {
-    electron: require(`${__dirname}/../node_modules/electron`)
-});
-
 let tray = null;
 
 app.on('window-all-closed', () => {
