@@ -78,7 +78,6 @@
                     timeTime.value = timeStr;
                     spanTime.value = `${('00' + span.hours).slice(-2)}:${('00' + span.minutes).slice(-2)}`;
 
-                    CheckSavable();
                     resolve();
                 })
             }
@@ -99,9 +98,9 @@
                 })
             }
 
-            function CheckSavable() {
-
-            }
+            spanTime.addEventListener('change', () => {
+                renderer.SetSaveStable(parseInt(spanTime.value.split(':')[0]) >= 7);
+            });
 
         </script>
     </body>
