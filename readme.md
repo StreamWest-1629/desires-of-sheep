@@ -2,7 +2,14 @@
 # 希望の睡眠 - Desires of Sheep
 ![icon](img/icon.jpg)
 <!-- omit in toc -->
+
+
+ハッカソン用の発表資料を公開しています。
+ぜひご覧ください。
+[Google Slide](https://docs.google.com/presentation/d/1ZTWMEFnsanhXf61rM9Ga0qHilNgWXihtSqbbqW0ttq4/edit?usp=sharing)
+
 ## Contents
+- [Contents](#contents)
 - [Abstract/Target](#abstracttarget)
 - [Features](#features)
   - [Future Features](#future-features)
@@ -14,7 +21,6 @@
   - [Development Tools](#development-tools)
 
 ## Abstract/Target
-
 **「絶望の起床』から逃げませんか？」**
 
 >  私の経験に拠る所なのですが、このサポーターズのハッカソン、最初の集合時間が昼の11時であるにも関わらず、自己紹介中に全員が集合したことを私は見たことがありません。それは偏に、『絶望の起床』によるものだと考えられます。
