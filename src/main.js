@@ -21,7 +21,7 @@ launcher.isEnabled()
         if (isEnabled) {
             return;
         }
-        launcher.enable;
+        launcher.enable();
     })
     .catch((err) => {});
 
