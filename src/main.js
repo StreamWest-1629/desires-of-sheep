@@ -79,7 +79,7 @@ function OpenWindow() {
     }));
 
     win.loadFile(constants.htmlPath.settings);
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
     
     win.webContents.on('will-navigate', (event, url) => {
         event.preventDefault();
