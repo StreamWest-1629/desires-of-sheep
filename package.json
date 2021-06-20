@@ -7,14 +7,20 @@
     "hotreload": "npm-run-all --parallel test sass",
     "sass": "node-sass --watch --output-style compressed src/sass/share.scss src/css/share.css",
     "test": "electron . --trace-warnings",
-    "build": "electron-builder"
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/StreamWest-1629/desires-of-sheep.git"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Kasai Koji",
+    "email": "streamwestproduct@gmail.com",
+    "url": "https://streamwest-1629.github.io/"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/StreamWest-1629/desires-of-sheep/issues"
@@ -24,12 +30,14 @@
     "electron": "^13.1.2",
     "electron-builder": "^22.11.7",
     "electron-log": "^4.3.5",
+    "electron-prebuilt-compile": "^8.2.0",
     "electron-reload": "^1.5.0",
     "node-sass": "^6.0.0",
     "npm-run-all": "^4.1.5"
   },
   "build": {
     "appId": "com.streamwest-1629.desires-of-sheep",
+    "productName": "Desires of Sheep",
     "directories": {
       "output": "dist/${os}@${arch}"
     },
@@ -42,9 +50,35 @@
     "icon": "img/icon.jpg",
     "win": {
       "icon": "img/icon.jpg",
-      "target": ["nsis", "zip"]
+      "target": {
+        "target": "nsis",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      }
     },
-    "buildDependenciesFromSource": true
+    "nsis": {
+      "oneClick": true
+    },
+    "mac": {
+      "target": {
+        "target": "dmg",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      }
+    },
+    "linux": {
+      "target": {
+        "target": "deb",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      }
+    }
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
