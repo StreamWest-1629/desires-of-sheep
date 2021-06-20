@@ -71,7 +71,7 @@
   - `electron` と `node-sass` のホットリロードを同時に起動するような仕組みを作成した
 
 ## Using Tools
-![Electron Logo](icons/electron.svg)![npm Logo](icons/Npm.svg)![vscode Logo](icons/vscode.svg)
+![Electron Logo](icons/electron.svg)![js Logo](icons/js.svg)![nodejs Logo](icons/nodejs.svg)![html5 Logo](icons/html5.svg)![npm Logo](icons/Npm.svg)![vscode Logo](icons/vscode.svg)![github Logo](icons/github.svg)
 
 
 ### Framework
