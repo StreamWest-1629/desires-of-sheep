@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/StreamWest-1629/desires-of-sheep#readme",
   "devDependencies": {
-    "electron": "^13.1.2",
+    "electron": "^15.5.5",
     "electron-builder": "^22.11.7",
     "electron-log": "^4.3.5",
     "electron-prebuilt-compile": "^8.2.0",
